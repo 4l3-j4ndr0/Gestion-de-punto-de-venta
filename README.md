@@ -11,7 +11,9 @@ CAJA REGISTRADORA  ----> es donde se le dan salida a los productos, tantos los q
                          que se debe dar al que lo compra, se puede eliminar o cancelar la venta que se este realizando
 CUENTAS POR COBRAR ----> igual que el registro de ventas pero con las deudas, a excepcion de que al eliminar una deuda o editarla (para menor cantidad del producto) esta pasa para 
                          el registro de ventas y no para el almacen como es logico, si se elimina da la opcion de eliminar toda la deuda o solo la fila que se selecccione
-En todos los anteriores excepto en usuarios se puede hacer reportes para exportalos a excel, pdf, html, etc, o imprimirlos directamente                         
+En todos los anteriores excepto en usuarios se puede hacer reportes para exportalos a excel, pdf, html, etc, o imprimirlos directamente   
+
                          
-                         
+Cuenta con una base de datos para almacenar toda esta informacion, la base de datos puede estar hospedada en un servidor de bases de datos online como xampp o embebida 
+con la libreria h2-1.4.192.jar
                          
