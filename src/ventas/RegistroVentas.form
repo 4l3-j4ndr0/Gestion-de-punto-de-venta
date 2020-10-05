@@ -354,7 +354,7 @@
                 <Property name="phColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="placeholder" type="java.lang.String" value="C&#xd3;DIGO/NOMBRE"/>
+                <Property name="placeholder" type="java.lang.String" value="C&#xd3;DIGO/PRODUCTO"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscar2ActionPerformed"/>
@@ -362,7 +362,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="120" width="150" height="-1"/>
+                  <AbsoluteConstraints x="20" y="120" width="160" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

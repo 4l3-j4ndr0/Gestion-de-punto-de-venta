@@ -96,7 +96,7 @@ public class ListaAlimentosAd extends javax.swing.JInternalFrame {
                 }
             }
         });
-        Alimentos.resizeColumnWidth(tablaAlimentos);
+   //     Alimentos.resizeColumnWidth(tablaAlimentos);
     }
     int cant_alamacen=0;
 
@@ -130,7 +130,7 @@ public class ListaAlimentosAd extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CÓDIGO", "TIPO PRODUCTO", "NOMBRE PRODUCTO", "CANTIDAD", "PRECIO $"
+                "CÓDIGO", "TIPO PRODUCTO", "PRODUCTO", "CANTIDAD", "PRECIO $"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -154,7 +154,7 @@ public class ListaAlimentosAd extends javax.swing.JInternalFrame {
         buscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscar.setOpaque(false);
         buscar.setPhColor(new java.awt.Color(255, 255, 255));
-        buscar.setPlaceholder("CÓDIGO/NOMBRE");
+        buscar.setPlaceholder("CÓDIGO/PRODUCTO");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarActionPerformed(evt);

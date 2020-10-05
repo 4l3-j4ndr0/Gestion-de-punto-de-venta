@@ -31,7 +31,7 @@ public class SplashScreen extends javax.swing.JFrame {
     public SplashScreen() {
         initComponents();
         AWTUtilities.setWindowOpaque(this, false);
-        this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo3.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/splash1.png")).getImage());
         this.setLocationRelativeTo(null);
         this.progreso.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       //  Dias_Prueba();
@@ -96,20 +96,20 @@ public class SplashScreen extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        texto.setForeground(new java.awt.Color(255, 204, 0));
+        texto.setForeground(new java.awt.Color(255, 51, 51));
         texto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         texto.setText("Cargando componentes...");
         texto.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 410, 350, 30));
+        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 350, 30));
 
-        progreso.setBackground(new java.awt.Color(0, 0, 0));
-        progreso.setForeground(new java.awt.Color(0, 57, 184));
-        getContentPane().add(progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 350, 30));
+        progreso.setBackground(new java.awt.Color(255, 255, 255));
+        progreso.setForeground(new java.awt.Color(42, 102, 142));
+        getContentPane().add(progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 350, 30));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo3.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/splash1.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 520));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

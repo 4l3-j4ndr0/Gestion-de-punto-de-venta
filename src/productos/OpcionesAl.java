@@ -237,7 +237,7 @@ public class OpcionesAl {
         if (busca.equals("")) {
             sql = AlimentosCod.LISTAR;
         } else {
-            sql = "SELECT * FROM alimentos WHERE (codigo_al like'" + busca + "%' or nombre_al like'" + busca + "%' or tipo_al like'" + busca + "%') "
+            sql = "SELECT * FROM alimentos WHERE (codigo_al like'" + busca + "%' or nombre_al like'" + busca + "%') "
                     + " ORDER BY nombre_al";
         }
         String datos[] = new String[7];

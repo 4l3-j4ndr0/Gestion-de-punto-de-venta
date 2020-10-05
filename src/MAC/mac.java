@@ -9,33 +9,32 @@ package MAC;
  *
  * @author 4L3
  */
-import java.io.FileWriter;
-import java.net.InetAddress;
+import java.io.IOException;
 import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.JOptionPane;
 
 
 public class mac {
 
     
-     public String conseguirMAC(){
+     public ArrayList conseguirMAC() throws SocketException{
+            final Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+       ArrayList a=new ArrayList();
+    while (e.hasMoreElements()) {
+        final byte [] mac = e.nextElement().getHardwareAddress();
+        
+        if (mac != null) {
             StringBuilder sb = new StringBuilder();
-  NetworkInterface a; String linea;
-  try {
-   a = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-   byte[] mac = a.getHardwareAddress();
-   
-
-   for (int i = 0; i < mac.length; i++) {
-    sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));  
-   } 
-   FileWriter fwriter = new FileWriter("mac.dat");
-   fwriter.write("MAC: " + sb.toString());
-   fwriter.close();
-   
- //  lmac.setText("SE ha registrado la MAC exitosamente.");
-  } catch (Exception e) {
-   e.printStackTrace(); 
-  }
-  return ""+sb.toString();
+            for (int i = 0; i < mac.length; i++)
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+            a.add(sb.toString()+"\n");
+            System.out.println(sb.toString());
+            
+        }
+    }
+    return a;
  }
 }

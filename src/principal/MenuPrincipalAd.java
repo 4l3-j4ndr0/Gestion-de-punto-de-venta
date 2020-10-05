@@ -59,7 +59,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
         //cambiar icono de ventana
         this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/principal/logo.png")).getImage());
         //cambiar titulo de ventana
-        this.setTitle("MENÚ PRINCIPAL - URUGUAYAN DREAM");
+        this.setTitle("MENÚ PRINCIPAL - SISTEMA GESTION EMPRESARIAL VIRTUAL (GEVI)");
     }
 
     public MenuPrincipalAd(SplashScreen inicio) {
@@ -430,7 +430,7 @@ try{
     }//GEN-LAST:event_formWindowClosing
 
     private void infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoActionPerformed
-        JOptionPane.showMessageDialog(this, "El Sistema URUGUAYAN DREAM cuenta con una serie de opciones para el manejo del mismo.\n\n" +
+        JOptionPane.showMessageDialog(this, "El Sistema GEVI cuenta con una serie de opciones para el manejo del mismo.\n\n" +
                                             "*USUARIOS: este apartado registra usuarios para que puedan acceder al sistema,\n"
                                           + "garantizando la NO entrada de usuarios no deseados.\n\n" +
                                             "*PRODUCTOS: este apartado registra los diferentes tipos de productos que se\n"
@@ -459,7 +459,7 @@ try{
             rd.show();
             cerra1 = true;
         } else {
-            JOptionPane.showMessageDialog(this, "La ventana REGISTRO VENTAS\nya esta abierta !!!", "Aviso", 0,
+            JOptionPane.showMessageDialog(this, "La ventana CUENTAS POR COBRAR\nya esta abierta !!!", "Aviso", 0,
                     new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
         }
 //JOptionPane.showMessageDialog(this, "La ventana REGISTRO DE DEUDAS esta en desarrollo actualmente.\nEspere por una nueva actualizacion del desarrollador !!!", "Aviso", 0,

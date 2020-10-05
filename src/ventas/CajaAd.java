@@ -414,7 +414,7 @@ public class CajaAd extends javax.swing.JInternalFrame {
             la.toFront();
             la.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "La ventana LISTA DE ALIMENTOS\nya esta abierta !!!", "Aviso", 0,
+            JOptionPane.showMessageDialog(this, "La ventana LISTA DE PRODUCTOS\nya esta abierta !!!", "Aviso", 0,
                     new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
         }
     }//GEN-LAST:event_buscaActionPerformed

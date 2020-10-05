@@ -324,7 +324,7 @@ public class RegistroDeudas extends javax.swing.JInternalFrame {
         buscar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscar2.setOpaque(false);
         buscar2.setPhColor(new java.awt.Color(255, 255, 255));
-        buscar2.setPlaceholder("CÓDIGO/NOMBRE");
+        buscar2.setPlaceholder("TITULAR/PRODUCTO");
         buscar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscar2ActionPerformed(evt);
@@ -335,7 +335,7 @@ public class RegistroDeudas extends javax.swing.JInternalFrame {
                 buscar2KeyReleased(evt);
             }
         });
-        jPanel2.add(buscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 150, -1));
+        jPanel2.add(buscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 160, -1));
 
         codigoL2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         codigoL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/buscarL.png"))); // NOI18N

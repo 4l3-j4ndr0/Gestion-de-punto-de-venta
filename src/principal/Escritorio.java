@@ -16,7 +16,7 @@ import javax.swing.JDesktopPane;
  */
 public class Escritorio extends JDesktopPane{
 
-       Image IMG=new ImageIcon(getClass().getResource("/imagenes/wer2.jpg")).getImage();
+       Image IMG=new ImageIcon(getClass().getResource("/imagenes/bienve.png")).getImage();
 
        @Override
         public void paintChildren(Graphics g){

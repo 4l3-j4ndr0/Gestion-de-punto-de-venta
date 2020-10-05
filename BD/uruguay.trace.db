@@ -1,6 +1,33 @@
-2020-09-29 13:56:52 database: flush
-org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+2020-10-01 16:56:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "SELECT * FROM ""MAC"" WHERE ""MAC""=FC-45-96-8A[*]-59-26 "
+Syntax error in SQL statement "SELECT * FROM ""MAC"" WHERE ""MAC""=FC-45-96-8A[*]-59-26 "; SQL statement:
+SELECT * FROM `mac` WHERE `mac`=FC-45-96-8A-59-26 [42000-192]
+2020-10-01 16:56:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Columna "FC-45-96-8A-59-26" no encontrada
+Column "FC-45-96-8A-59-26" not found; SQL statement:
+SELECT * FROM `mac` WHERE `mac`=`FC-45-96-8A-59-26` [42122-192]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1202)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2020-10-01 20:14:18 database: flush
+org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:295)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
@@ -22,22 +49,22 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:C:/User
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
 	at org.h2.Driver.connect(Driver.java:72)
-	at java.sql.DriverManager.getConnection(Unknown Source)
-	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at principal.conectar.conexion(conectar.java:20)
-	at principal.Correr.<clinit>(Correr.java:42)
-Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at principal.Correr.<clinit>(Correr.java:43)
+Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	... 25 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
 	... 20 more
-2020-09-29 13:56:58 database: flush
-org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+2020-10-01 23:46:59 database: flush
+org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:295)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
@@ -59,37 +86,75 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:C:/User
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
 	at org.h2.Driver.connect(Driver.java:72)
-	at java.sql.DriverManager.getConnection(Unknown Source)
-	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at principal.conectar.conexion(conectar.java:20)
+	at principal.Correr.<clinit>(Correr.java:43)
+Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
+	... 20 more
+2020-10-02 00:12:50 database: flush
+org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:375)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:358)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2893)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2463)
+	at org.h2.engine.Database.open(Database.java:692)
+	at org.h2.engine.Database.openDatabase(Database.java:270)
+	at org.h2.engine.Database.<init>(Database.java:264)
+	at org.h2.engine.Engine.openSession(Engine.java:64)
+	at org.h2.engine.Engine.openSession(Engine.java:176)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:154)
+	at org.h2.engine.Engine.createSession(Engine.java:137)
+	at org.h2.engine.Engine.createSession(Engine.java:27)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at principal.conectar.conexion(conectar.java:20)
 	at principal.SplashScreen.<clinit>(SplashScreen.java:26)
-	at principal.Correr$1.run(Correr.java:162)
-	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
-	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
-	at java.awt.EventQueue.access$500(Unknown Source)
-	at java.awt.EventQueue$3.run(Unknown Source)
-	at java.awt.EventQueue$3.run(Unknown Source)
+	at principal.Correr.tabla_mac_vacia(Correr.java:64)
+	at principal.Correr$1.run(Correr.java:120)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:756)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
 	at java.security.AccessController.doPrivileged(Native Method)
-	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
-	at java.awt.EventQueue.dispatchEvent(Unknown Source)
-	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.run(Unknown Source)
-Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:726)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
-	... 40 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]
+	... 41 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
-	... 35 more
-2020-09-29 13:56:59 database: flush
-org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	... 36 more
+2020-10-02 00:24:05 database: flush
+org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:295)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
@@ -111,54 +176,89 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:C:/User
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
 	at org.h2.Driver.connect(Driver.java:72)
-	at java.sql.DriverManager.getConnection(Unknown Source)
-	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at principal.conectar.conexion(conectar.java:20)
-	at principal.AccesoLogin.<init>(AccesoLogin.java:300)
-	at principal.SplashScreen$1.run(SplashScreen.java:45)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]"
-General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at principal.Correr.<clinit>(Correr.java:43)
+Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
-	... 27 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/4l3/Desktop/Urugayan Dream/BD/uruguay.mv.db [1.4.192/7]
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
-	... 22 more
-2020-09-29 14:08:58 jdbc[6]: exception
-org.h2.jdbc.JdbcSQLException: SUM ó AVG sobre un tipo de datos invalidado para "SUM(CANTIDAD)"
-SUM or AVG on wrong data type for "SUM(CANTIDAD)"; SQL statement:
-SELECT `descripcion`,sum(`cantidad`) as CANTIDAD,sum(`ganancia`) + sum(`inversion`) as TOTAL,sum(`inversion`) as INVERSION,sum(`ganancia`) as GANANCIA FROM `registro_venta` group by `descripcion`  [90015-192]
+	... 20 more
+2020-10-02 08:28:28 database: flush
+org.h2.message.DbException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:375)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:358)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2893)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2463)
+	at org.h2.engine.Database.open(Database.java:692)
+	at org.h2.engine.Database.openDatabase(Database.java:270)
+	at org.h2.engine.Database.<init>(Database.java:264)
+	at org.h2.engine.Engine.openSession(Engine.java:64)
+	at org.h2.engine.Engine.openSession(Engine.java:176)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:154)
+	at org.h2.engine.Engine.createSession(Engine.java:137)
+	at org.h2.engine.Engine.createSession(Engine.java:27)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at principal.conectar.conexion(conectar.java:20)
+	at principal.Correr.<clinit>(Correr.java:43)
+Caused by: org.h2.jdbc.JdbcSQLException: Error General : "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]" [50000-192]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Proyectos/Uruguay/BD/uruguay.mv.db [1.4.192/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
+	... 20 more
+2020-10-02 08:28:52 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: SUM ó AVG sobre un tipo de datos invalidado para "SUM(CANTIDAD_AL)"
+SUM or AVG on wrong data type for "SUM(CANTIDAD_AL)"; SQL statement:
+SELECT sum(cantidad_al) FROM alimentos [90015-192]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	at org.h2.message.DbException.get(DbException.java:179)
 	at org.h2.message.DbException.get(DbException.java:155)
 	at org.h2.expression.Aggregate.optimize(Aggregate.java:423)
-	at org.h2.expression.Alias.optimize(Alias.java:51)
 	at org.h2.command.dml.Select.prepare(Select.java:852)
 	at org.h2.command.Parser.prepareCommand(Parser.java:259)
 	at org.h2.engine.Session.prepareLocal(Session.java:560)
 	at org.h2.engine.Session.prepareCommand(Session.java:501)
 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1202)
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:73)
-	at ventas.OpcionesVen.listar_por_producto(OpcionesVen.java:263)
-	at ventas.RegistroVentas$26.run(RegistroVentas.java:1045)
-	at java.lang.Thread.run(Unknown Source)
-2020-09-29 14:10:40 jdbc[6]: exception
+	at productos.OpcionesAl.extraer_totales(OpcionesAl.java:372)
+	at productos.Alimentos.report(Alimentos.java:1100)
+	at productos.Alimentos$28.run(Alimentos.java:1084)
+	at java.lang.Thread.run(Thread.java:745)
+2020-10-02 08:29:27 jdbc[5]: exception
 org.h2.jdbc.JdbcSQLException: SUM ó AVG sobre un tipo de datos invalidado para "SUM(CANTIDAD)"
 SUM or AVG on wrong data type for "SUM(CANTIDAD)"; SQL statement:
-SELECT `descripcion`,sum(`cantidad`) as CANTIDAD,sum(`ganancia`) + sum(`inversion`) as TOTAL,sum(`inversion`) as INVERSION,sum(`ganancia`) as GANANCIA FROM `registro_venta` group by `descripcion`  [90015-192]
+SELECT sum(cantidad) FROM registro_deuda [90015-192]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	at org.h2.message.DbException.get(DbException.java:179)
 	at org.h2.message.DbException.get(DbException.java:155)
 	at org.h2.expression.Aggregate.optimize(Aggregate.java:423)
-	at org.h2.expression.Alias.optimize(Alias.java:51)
 	at org.h2.command.dml.Select.prepare(Select.java:852)
 	at org.h2.command.Parser.prepareCommand(Parser.java:259)
 	at org.h2.engine.Session.prepareLocal(Session.java:560)
 	at org.h2.engine.Session.prepareCommand(Session.java:501)
 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1202)
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:73)
-	at ventas.OpcionesVen.listar_por_producto(OpcionesVen.java:263)
-	at ventas.RegistroVentas$26.run(RegistroVentas.java:1045)
+	at productos.OpcionesAl.extraer_totales(OpcionesAl.java:372)
+	at deudas.RegistroDeudas.crea_reporte_desagrupado(RegistroDeudas.java:1296)
+	at deudas.RegistroDeudas$26.run(RegistroDeudas.java:1259)
 	at java.lang.Thread.run(Thread.java:745)

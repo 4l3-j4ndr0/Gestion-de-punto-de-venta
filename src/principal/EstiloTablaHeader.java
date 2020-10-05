@@ -27,7 +27,7 @@ public class EstiloTablaHeader implements TableCellRenderer{
         
         if(value instanceof String ) {
             jcomponent = new JLabel((String) "   " + value);
-            ((JLabel)jcomponent).setHorizontalAlignment(SwingConstants.LEFT );
+            ((JLabel)jcomponent).setHorizontalAlignment(SwingConstants.CENTER );
             ((JLabel)jcomponent).setSize( 30, jcomponent.getWidth() );
             ((JLabel)jcomponent).setPreferredSize( new Dimension(3, jcomponent.getWidth())  );
         } 

@@ -30,12 +30,13 @@ public class EstiloTablaRenderer extends DefaultTableCellRenderer {
         this.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(0, 0, 0)));
 
         if (row % 2 == 0) {
-            componenete.setForeground(Color.BLACK);
-            componenete.setBackground(new Color(232, 232, 232));
+           componenete.setBackground(Color.green);
+           componenete.setForeground(Color.BLACK);
         } else {
+            componenete.setBackground(new Color(255,204,153));
             componenete.setForeground(Color.BLACK);
-            componenete.setBackground(Color.WHITE);
         }
+        
         if (table.getValueAt(row, 3) != null) {
             double numero = Double.parseDouble(table.getValueAt(row, 3).toString());
             if (numero < 10 && numero > 0) {

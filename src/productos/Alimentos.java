@@ -196,7 +196,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
             }
         }
         });
-        resizeColumnWidth(tablaAlimentos);
+       // resizeColumnWidth(tablaAlimentos);
     }
 
     //###################### auto ajustar ancho de columnas ####################
@@ -476,7 +476,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CÓDIGO", "TIPO PRODUCTO", "NOMBRE PRODUCTO", "CANTIDAD", "PRECIO COMPRA", "PRECIO VENTA", "GANANCIA"
+                "CÓDIGO", "TIPO PRODUCTO", "PRODUCTO", "CANTIDAD", "PRECIO COMPRA", "PRECIO VENTA", "GANANCIA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -634,7 +634,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
         buscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscar.setOpaque(false);
         buscar.setPhColor(new java.awt.Color(255, 255, 255));
-        buscar.setPlaceholder("CÓDIGO/NOMBRE");
+        buscar.setPlaceholder("CÓDIGO/PRODUCTO");
         buscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buscarMouseClicked(evt);
