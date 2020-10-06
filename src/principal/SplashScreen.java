@@ -95,16 +95,16 @@ public class SplashScreen extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        texto.setForeground(new java.awt.Color(255, 51, 51));
-        texto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        texto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        texto.setForeground(new java.awt.Color(102, 102, 102));
+        texto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         texto.setText("Cargando componentes...");
         texto.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 350, 30));
+        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 350, 30));
 
         progreso.setBackground(new java.awt.Color(255, 255, 255));
         progreso.setForeground(new java.awt.Color(42, 102, 142));
-        getContentPane().add(progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 350, 30));
+        getContentPane().add(progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 350, 20));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/splash1.png"))); // NOI18N

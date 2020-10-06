@@ -697,14 +697,17 @@ public class Alimentos extends javax.swing.JInternalFrame {
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
         if (selecionRegistro) {
-            JOptionPane.showMessageDialog(this, "El CODIGO: " + this.codigo.getText() + "\nya existe en un registro.", "Alimentos", 0,
+            JOptionPane.showMessageDialog(this, "El CODIGO: " + this.codigo.getText() + "\nya existe en un registro.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
-        } else if (codigo.getText().equals("") || nombre.getText().equals("") || tipoAl.getSelectedItem().equals("TIPO ALIMENTOS")
+        } else if (codigo.getText().equals("") || nombre.getText().equals("") || tipoAl.getSelectedItem().equals("TIPO PRODUCTO")
                 || precio_compra.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Todos los campos\nson obligatorios.", "Alimentos", 0,
+            JOptionPane.showMessageDialog(this, "Todos los campos\nson obligatorios.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         } else {
             if (cantidad.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Todos los campos\nson obligatorios.", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
+                /*
                 Runnable runnable1 = new Runnable() {
                     public void run() {
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -740,7 +743,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     }
                 };
                 Thread t1 = new Thread(runnable1);
-                t1.start();
+                t1.start();*/
             } else {
                 Runnable runnable1 = new Runnable() {
                     public void run() {
@@ -771,7 +774,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     check_suma.setVisible(false);
                      OpcionesAl.extraerID();
                      selecionRegistro = false;
-                    JOptionPane.showMessageDialog(Alimentos.this, "Registro éxitoso.", "Alimentos", 0,
+                    JOptionPane.showMessageDialog(Alimentos.this, "Registro éxitoso.", "Productos", 0,
                             new ImageIcon(getClass().getResource("/imagenes/agregado.png")));
                 }
                 Alimentos.this.setEnabled(true);
@@ -790,9 +793,9 @@ public class Alimentos extends javax.swing.JInternalFrame {
             if (tablaAlimentos.getSelectedRowCount() > 0) {
                 if (codigo.getText().equals("") || nombre.getText().equals("") || tipoAl.getSelectedItem().equals("TIPO ALIMENTOS")
                         || precio_compra.getText().equals("") || precio_venta.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Es necesario completar\nlos campos a actualizar.", "Alimentos", 0,
+                    JOptionPane.showMessageDialog(this, "Es necesario completar\nlos campos a actualizar.", "Productos", 0,
                             new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
-                } else if (JOptionPane.showConfirmDialog(this, "Esta a punto de actualizar\nun registro.\n¿Desea continuar?", "Alimentos", JOptionPane.YES_NO_OPTION, 0,
+                } else if (JOptionPane.showConfirmDialog(this, "Esta a punto de actualizar\nun registro.\n¿Desea continuar?", "Productos", JOptionPane.YES_NO_OPTION, 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
                     if (!cantidad.getText().equals("")) {
                         Runnable runnable1 = new Runnable() {
@@ -818,7 +821,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                                 String id = codigo.getText();
                                 limpiaCampos();
                                 selecionaFila(id);
-                                JOptionPane.showMessageDialog(Alimentos.this, "Registro actualizado.", "Alimentos", 0,
+                                JOptionPane.showMessageDialog(Alimentos.this, "Registro actualizado.", "Productos", 0,
                                         new ImageIcon(getClass().getResource("/imagenes/actualiza1.png")));
                             }
                         } else {
@@ -834,7 +837,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                                 String id = codigo.getText();
                                 limpiaCampos();
                                 selecionaFila(id);
-                                JOptionPane.showMessageDialog(Alimentos.this, "Registro actualizado.", "Alimentos", 0,
+                                JOptionPane.showMessageDialog(Alimentos.this, "Registro actualizado.", "Productos", 0,
                                         new ImageIcon(getClass().getResource("/imagenes/actualiza1.png")));
                             }
                         }
@@ -856,18 +859,18 @@ public class Alimentos extends javax.swing.JInternalFrame {
                             String id = codigo.getText();
                             limpiaCampos();
                             selecionaFila(id);
-                            JOptionPane.showMessageDialog(this, "Registro actualizado.", "Alimentos", 0,
+                            JOptionPane.showMessageDialog(this, "Registro actualizado.", "Productos", 0,
                                     new ImageIcon(getClass().getResource("/imagenes/alimentos/actualizado.png")));
                         }
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Seleccione un registro.", "Alimentos", 0,
+                JOptionPane.showMessageDialog(this, "Seleccione un registro.", "Productos", 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "No hay registros\npara actualizar.", "Alimentos", 0,
+            JOptionPane.showMessageDialog(this, "No hay registros\npara actualizar.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
         check_suma.setSelected(false);
@@ -877,7 +880,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         if (tablaAlimentos.getRowCount() > 0) {
             if (tablaAlimentos.getSelectedRowCount() > 0) {
-                if (JOptionPane.showConfirmDialog(this, "Esta a punto de eliminar\nun registro.\n¿Desea continuar?", "Alimentos", JOptionPane.YES_NO_OPTION, 0,
+                if (JOptionPane.showConfirmDialog(this, "Esta a punto de eliminar\nun registro.\n¿Desea continuar?", "Productos", JOptionPane.YES_NO_OPTION, 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
                    Runnable runnable1 = new Runnable() {
                     public void run() {
@@ -892,7 +895,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     int elimina = OpcionesAl.eliminar(id);
                     if (elimina != 0) {
                         limpiaCampos();
-                        JOptionPane.showMessageDialog(Alimentos.this, "Registro eliminado.", "Alimentos", 0,
+                        JOptionPane.showMessageDialog(Alimentos.this, "Registro eliminado.", "Productos", 0,
                                 new ImageIcon(getClass().getResource("/imagenes/borrar1 copia.png")));
                     }
                     }else{
@@ -903,7 +906,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                                 
                             }
                         limpiaCampos();
-                        JOptionPane.showMessageDialog(Alimentos.this, "Registros eliminados.", "Alimentos", 0,
+                        JOptionPane.showMessageDialog(Alimentos.this, "Registros eliminados.", "Productos", 0,
                                 new ImageIcon(getClass().getResource("/imagenes/borrar1 copia.png")));
                         al.clear();
                     
@@ -916,19 +919,19 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 t1.start();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Seleccione un registro.", "Alimentos", 0,
+                JOptionPane.showMessageDialog(this, "Seleccione un registro.", "Productos", 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Alimentos", 0,
+            JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void eliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarTActionPerformed
         if (tablaAlimentos.getRowCount() > 0) {
-            if (JOptionPane.showConfirmDialog(this, "Esta a punto de elimnar\ntodos los registros.\n¿Desea continuar?", "Alimentos", JOptionPane.YES_NO_OPTION, 0,
+            if (JOptionPane.showConfirmDialog(this, "Esta a punto de elimnar\ntodos los registros.\n¿Desea continuar?", "Productos", JOptionPane.YES_NO_OPTION, 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
                Runnable runnable1 = new Runnable() {
                     public void run() {
@@ -940,7 +943,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 int eliminaT = OpcionesAl.eliminaTodos();
                 if (eliminaT != 0) {
                     limpiaCampos();
-                    JOptionPane.showMessageDialog(Alimentos.this, "Registros eliminados.", "Alimentos", 0,
+                    JOptionPane.showMessageDialog(Alimentos.this, "Registros eliminados.", "Productos", 0,
                             new ImageIcon(getClass().getResource("/imagenes/borrar1 copia.png")));
                 }
                 Alimentos.this.setEnabled(true);
@@ -951,7 +954,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 t1.start();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Alimentos", 0,
+            JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
     }//GEN-LAST:event_eliminarTActionPerformed

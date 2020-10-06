@@ -151,10 +151,10 @@ public class Correr {
                     JOptionPane.showMessageDialog(null, "Error en en Look and Feel", "Error", ERROR);
                 }
                 mac m = new mac();
-                if(ultimo_intento()<30){
+             /*   if(ultimo_intento()<30){
                     registrar_intento();
-                    new SplashScreen().setVisible(true);
-          /*      if (tabla_mac_vacia() != 0) {
+                    new SplashScreen().setVisible(true); */
+                if (tabla_mac_vacia() != 0) {
                     try {
                         if (existe_mac(m.conseguirMAC().toString())) {
                             new SplashScreen().setVisible(true);
@@ -204,11 +204,11 @@ public class Correr {
                     } catch (SocketException ex) {
                         Logger.getLogger(Correr.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } */
-            }else{
+                } 
+          /*  }else{
                     JOptionPane.showMessageDialog(null, "Su version de prueba de 30 usos ha expirado.\nContacte con el desarrollador del software para adquirir la versión completa", "Información", JOptionPane.INFORMATION_MESSAGE,
                         new ImageIcon(getClass().getResource("/imagenes/policia-imagen-animada-0017.gif")));
-                }
+                }*/
                   
             }
         });
