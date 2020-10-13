@@ -297,6 +297,7 @@ public class AccesoLogin extends javax.swing.JFrame {
     Connection cn = cc.conexion();
     public void Ingresa(String id, String pas) {
         String dato = null;
+        String tipo = null;
         try {
             String sql = "SELECT nombre_us FROM usuarios WHERE nombre_us = '" + id + "'";
             Statement st = cn.createStatement();
@@ -306,12 +307,12 @@ public class AccesoLogin extends javax.swing.JFrame {
                 Statement st1 = cn.createStatement();
                 ResultSet rs1 = st1.executeQuery(sql1);
                 if (rs1.first()) {
-//                    String sql2 = "SELECT tipo_us FROM usuarios WHERE nombre_us = '" + id + "'"
-//                            + " and pass = '" + pas + "'";
-//                    Statement st2 = cn.createStatement();
-//                    ResultSet rs2 = st2.executeQuery(sql2);
-                    while (rs1.next()) {
-                        dato = rs1.getString(1);
+                    String sql2 = "SELECT tipo_us FROM usuarios WHERE nombre_us = '" + id + "'"
+                            + " and pass = '" + pas + "'";
+                    Statement st2 = cn.createStatement();
+                    ResultSet rs2 = st2.executeQuery(sql2);
+                    while (rs2.next()) {
+                        tipo = rs2.getString(1);
                     }
 
 //                    if (dato.equals("ADMINISTRADOR")) {
@@ -324,8 +325,13 @@ public class AccesoLogin extends javax.swing.JFrame {
                         }
                         dispose();
                         MenuPrincipalAd mp = new MenuPrincipalAd();
+                        if (tipo.equals("ADMINISTRADOR")) {
                         JOptionPane.showMessageDialog(this, "Bienvenido a SISTEMA GEVI:  " + dato, "Administrador Negocio", 0,
                                 new ImageIcon(getClass().getResource("/imagenes/principal/adm.png")));
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Bienvenido a SISTEMA GEVI:  " + dato, "Empleado", 0,
+                                new ImageIcon(getClass().getResource("/imagenes/principal/adm.png")));
+                        }
                         mp.userConect.setText(dato);
                         mp.setVisible(true);
 

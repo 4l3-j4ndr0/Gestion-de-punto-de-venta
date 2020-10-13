@@ -798,13 +798,13 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 } else if (JOptionPane.showConfirmDialog(this, "Esta a punto de actualizar\nun registro.\n¿Desea continuar?", "Productos", JOptionPane.YES_NO_OPTION, 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
                     if (!cantidad.getText().equals("")) {
-                        Runnable runnable1 = new Runnable() {
-                    public void run() {
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                        Alimentos.this.setEnabled(false);
-                        //inicio metodo
-                        //code
-                        //fin metodo
+//                        Runnable runnable1 = new Runnable() {
+//                    public void run() {
+//                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+//                        Alimentos.this.setEnabled(false);
+//                        //inicio metodo
+//                        //code
+//                        //fin metodo
                         if (check_suma.isSelected()) {
                             productos.AlimentosCod us = new AlimentosCod();
                             us.setPrimaryKey(codigo.getText());
@@ -841,27 +841,29 @@ public class Alimentos extends javax.swing.JInternalFrame {
                                         new ImageIcon(getClass().getResource("/imagenes/actualiza1.png")));
                             }
                         }
-                        Alimentos.this.setEnabled(true);
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                    }
-                };
-                Thread t1 = new Thread(runnable1);
-                t1.start();
+//                        Alimentos.this.setEnabled(true);
+//                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+//                    }
+//                };
+//                Thread t1 = new Thread(runnable1);
+//                t1.start();
                     } else {
-                        productos.AlimentosCod us = new AlimentosCod();
-                        us.setPrimaryKey(codigo.getText());
-                        us.setNombre(nombre.getText());
-                        us.setTipoal(tipoAl.getSelectedItem().toString());
-                        us.setPrecio_compra(precio_compra.getText());
-                        us.setPrecio_venta(precio_venta.getText());
-                        int opcion = OpcionesAl.actualizar(us);
-                        if (opcion != 0) {
-                            String id = codigo.getText();
-                            limpiaCampos();
-                            selecionaFila(id);
-                            JOptionPane.showMessageDialog(this, "Registro actualizado.", "Productos", 0,
-                                    new ImageIcon(getClass().getResource("/imagenes/alimentos/actualizado.png")));
-                        }
+                        JOptionPane.showMessageDialog(this, "Debe especificar la cantidad.", "Productos", 0,
+                                new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")));
+//                        productos.AlimentosCod us = new AlimentosCod();
+//                        us.setPrimaryKey(codigo.getText());
+//                        us.setNombre(nombre.getText());
+//                        us.setTipoal(tipoAl.getSelectedItem().toString());
+//                        us.setPrecio_compra(precio_compra.getText());
+//                        us.setPrecio_venta(precio_venta.getText());
+//                        int opcion = OpcionesAl.actualizar(us);
+//                        if (opcion != 0) {
+//                            String id = codigo.getText();
+//                            limpiaCampos();
+//                            selecionaFila(id);
+//                            JOptionPane.showMessageDialog(this, "Registro actualizado.", "Productos", 0,
+//                                    new ImageIcon(getClass().getResource("/imagenes/alimentos/actualizado.png")));
+//                        }
                     }
                 }
             } else {

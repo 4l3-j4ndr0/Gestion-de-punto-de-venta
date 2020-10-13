@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import usuarios.OpcionesUs;
 import usuarios.Usuarios;
 import ventas.CajaAd;
 import ventas.RegistroVentas;
@@ -47,7 +48,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
     }
 
     SplashScreen inicio;
-    
+
     /**
      * Creates new form MenuPrincipal
      */
@@ -79,7 +80,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
         setProgress(100, "Bienvenido al Sistema");
         this.setLocationRelativeTo(null);
     }
-    
+
     void setProgress(int percent, String information) {
         inicio.getJLabel().setText(information);
         inicio.getJProgressBar().setValue(percent);
@@ -90,7 +91,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pudo ejecutar la presentación");
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -360,43 +361,72 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
     usuarios.Usuarios usua;
     private void usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosActionPerformed
-try{
-        if (estacerrado(usua)) {
-            usua = new Usuarios();
-            escritorio.add(usua).setLocation(250, 3);
-            usua.show();
-        } else {
-            JOptionPane.showMessageDialog(this, "La ventana USUARIOS\nya esta abierta !!!", "Aviso", 0,
-                    new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
-        }
-       }catch (Exception ex) {
+        try {
+            OpcionesUs us = new OpcionesUs();
+            if (us.extraer_Tipo_us(userConect.getText()).equals("ADMINISTRADOR")) {
+                if (estacerrado(usua)) {
+                    usua = new Usuarios();
+                    escritorio.add(usua).setLocation(250, 3);
+                    usua.show();
+                } else {
+                    JOptionPane.showMessageDialog(this, "La ventana USUARIOS\nya esta abierta !!!", "Aviso", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Acceso denegado.", "Error", 0,
+                        new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, ex);
-        }      
+            JOptionPane.showMessageDialog(this, ex, "Error", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+        }
     }//GEN-LAST:event_usuariosActionPerformed
     productos.Alimentos al;
     private void alimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alimentosActionPerformed
-        if (estacerrado(al)) {
-            al = new Alimentos();
-            escritorio.add(al).setLocation(250, 3);
-            al.show();
-        } else {
-            JOptionPane.showMessageDialog(this, "La ventana PRODUCTOS\nya esta abierta !!!", "Aviso", 0,
-                    new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+        try {
+            OpcionesUs us = new OpcionesUs();
+            if (us.extraer_Tipo_us(userConect.getText()).equals("ADMINISTRADOR")) {
+                if (estacerrado(al)) {
+                    al = new Alimentos();
+                    escritorio.add(al).setLocation(250, 3);
+                    al.show();
+                } else {
+                    JOptionPane.showMessageDialog(this, "La ventana PRODUCTOS\nya esta abierta !!!", "Aviso", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Acceso denegado.", "Error", 0,
+                        new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
         }
     }//GEN-LAST:event_alimentosActionPerformed
     CajaAd ca;
     RegistroVentas rv;
     private void ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasActionPerformed
-        if (estacerrado(rv)) {
-            rv = new RegistroVentas();
-            escritorio.add(rv).setLocation(250, 3);
-            
-            rv.show();
-            cerra1 = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "La ventana REGISTRO VENTAS\nya esta abierta !!!", "Aviso", 0,
-                    new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+        try {
+            OpcionesUs us = new OpcionesUs();
+            if (us.extraer_Tipo_us(userConect.getText()).equals("ADMINISTRADOR")) {
+                if (estacerrado(rv)) {
+                    rv = new RegistroVentas();
+                    escritorio.add(rv).setLocation(250, 3);
+
+                    rv.show();
+                    cerra1 = true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "La ventana REGISTRO VENTAS\nya esta abierta !!!", "Aviso", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Acceso denegado.", "Error", 0,
+                        new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
         }
     }//GEN-LAST:event_ventasActionPerformed
 
@@ -416,7 +446,7 @@ try{
         if (JOptionPane.showConfirmDialog(this, "Esta a punto de\ncerrar la sesión\n¿Desea continuar?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION, 0,
                 new ImageIcon(getClass().getResource("/imagenes/principal/preg2.png"))) == JOptionPane.YES_OPTION) {
             this.dispose();
-           new AccesoLogin().setVisible(true);
+            new AccesoLogin().setVisible(true);
         }
     }//GEN-LAST:event_descMouseClicked
 
@@ -424,46 +454,55 @@ try{
         if (JOptionPane.showConfirmDialog(this, "Esta a punto de salir\nde la aplicación.\n¿Desea continuar?", "Cerrar", JOptionPane.YES_NO_OPTION, 0,
                 new ImageIcon(getClass().getResource("/imagenes/principal/adver1.png"))) == JOptionPane.YES_OPTION) {
             System.exit(0);
-        }else{
+        } else {
             this.setDefaultCloseOperation(0);
         }
     }//GEN-LAST:event_formWindowClosing
 
     private void infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoActionPerformed
-        JOptionPane.showMessageDialog(this, "El Sistema GEVI cuenta con una serie de opciones para el manejo del mismo.\n\n" +
-                                            "*USUARIOS: este apartado registra usuarios para que puedan acceder al sistema,\n"
-                                          + "garantizando la NO entrada de usuarios no deseados.\n\n" +
-                                            "*PRODUCTOS: este apartado registra los diferentes tipos de productos que se\n"
-                                          + "venderán con su respectiva información.\n\n" +
-                                            "*REGISTRO VENTAS: en este apartado se muestran todas las ventas realizadas\n"
-                                          + "durante determinada fecha con toda su información, se pueden borrar y editar los\n"
-                                          + "registros así como hacer búsquedas de los mismos. Además muestra el monto total de\n"
-                                          + "dinero, ganancia total e inversión total para mayor detalles.\n\n" +
-                                            "*CAJA DE COBRO: este apartado funciona como caja registradora de todos los productos\n"
-                                          + "que se le den salida lo mismo como cuenta por cobrar que como venta.\n\n" +
-                                            "*CUENTAS POR COBRAR: en este apartado se muestran todas las ventas realizadas\n"
-                                          + "que serán pagadas en un plazo de tiempo determinado \n\n"+
-                                            "*NOTA: en todos los apartados anteriores se puede crear reportes con la información referente\n"
-                                          + "a cada uno de ellos.\n"+
-                                            "________________________________________________________________\n"+
-                                            "DESARROLLADOR: ALEJANDRO RODAS CUETO.\n" +
-                                            "TELEFONOS:  4852-2730, (+53) 55801933.", "Información", 0,
-                    new ImageIcon(getClass().getResource("/imagenes/principal/yo4.png")));
+        JOptionPane.showMessageDialog(this, "El Sistema GEVI cuenta con una serie de opciones para el manejo del mismo.\n\n"
+                + "*USUARIOS: este apartado registra usuarios para que puedan acceder al sistema,\n"
+                + "garantizando la NO entrada de usuarios no deseados.\n\n"
+                + "*PRODUCTOS: este apartado registra los diferentes tipos de productos que se\n"
+                + "venderán con su respectiva información.\n\n"
+                + "*REGISTRO VENTAS: en este apartado se muestran todas las ventas realizadas\n"
+                + "durante determinada fecha con toda su información, se pueden borrar y editar los\n"
+                + "registros así como hacer búsquedas de los mismos. Además muestra el monto total de\n"
+                + "dinero, ganancia total e inversión total para mayor detalles.\n\n"
+                + "*CAJA DE COBRO: este apartado funciona como caja registradora de todos los productos\n"
+                + "que se le den salida lo mismo como cuenta por cobrar que como venta.\n\n"
+                + "*CUENTAS POR COBRAR: en este apartado se muestran todas las ventas realizadas\n"
+                + "que serán pagadas en un plazo de tiempo determinado \n\n"
+                + "*NOTA: en todos los apartados anteriores se puede crear reportes con la información referente\n"
+                + "a cada uno de ellos.\n"
+                + "________________________________________________________________\n"
+                + "DESARROLLADOR: ALEJANDRO RODAS CUETO.\n"
+                + "TELEFONOS:  4852-2730, (+53) 55801933.", "Información", 0,
+                new ImageIcon(getClass().getResource("/imagenes/principal/yo4.png")));
     }//GEN-LAST:event_infoActionPerformed
     RegistroDeudas rd;
     private void ventas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventas1ActionPerformed
         // TODO add your handling code here:
-        if (estacerrado(rd)) {
-            rd = new RegistroDeudas();
-            escritorio.add(rd).setLocation(250, 3);
-            rd.show();
-            cerra1 = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "La ventana CUENTAS POR COBRAR\nya esta abierta !!!", "Aviso", 0,
-                    new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+        try {
+            OpcionesUs us = new OpcionesUs();
+            if (us.extraer_Tipo_us(userConect.getText()).equals("ADMINISTRADOR")) {
+                if (estacerrado(rd)) {
+                    rd = new RegistroDeudas();
+                    escritorio.add(rd).setLocation(250, 3);
+                    rd.show();
+                    cerra1 = true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "La ventana CUENTAS POR COBRAR\nya esta abierta !!!", "Aviso", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Acceso denegado.", "Error", 0,
+                        new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
         }
-//JOptionPane.showMessageDialog(this, "La ventana REGISTRO DE DEUDAS esta en desarrollo actualmente.\nEspere por una nueva actualizacion del desarrollador !!!", "Aviso", 0,
-//                    new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
     }//GEN-LAST:event_ventas1ActionPerformed
     class horas implements ActionListener {
 

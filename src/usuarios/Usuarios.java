@@ -33,7 +33,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
         tablaUsuarios.setDefaultRenderer(Object.class, new principal.EstiloTablaUsuario());
         this.setFrameIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/icono.png")));
         this.sexo.setCursor(new Cursor(12));
-       // this.tipoUs.setCursor(new Cursor(12));       
+        this.tipoUs.setCursor(new Cursor(12));       
         tablaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         limpiaCampos();
 
@@ -56,21 +56,21 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
         });
 
-//        tipoUs.addItemListener(new ItemListener() {
-//
-//            @Override
-//            public void itemStateChanged(ItemEvent ie) {
-//                if (tipoUs.getSelectedItem().equals("TIPO USUARIO")) {
-//                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/tipousL.png")));
-//                }
-//                if (tipoUs.getSelectedItem().equals("ADMINISTRADOR")) {
-//                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/administrador.png")));
-//                }
-//                if (tipoUs.getSelectedItem().equals("NORMAL")) {
-//                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/normal.png")));
-//                }
-//            }
-//        });
+        tipoUs.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                if (tipoUs.getSelectedItem().equals("TIPO USUARIO")) {
+                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/tipousL.png")));
+                }
+                if (tipoUs.getSelectedItem().equals("ADMINISTRADOR")) {
+                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/administrador.png")));
+                }
+                if (tipoUs.getSelectedItem().equals("NORMAL")) {
+                    tipoUsL.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios/normal.png")));
+                }
+            }
+        });
 
         tablaUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -81,7 +81,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 }
             }
         });
-        resizeColumnWidth(tablaUsuarios);
+      //  resizeColumnWidth(tablaUsuarios);
     }
     
     //###################### auto ajustar ancho de columnas ####################
@@ -108,8 +108,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
         codigo.setText(tablaUsuarios.getValueAt(fila, 0).toString());
         nombre.setText(tablaUsuarios.getValueAt(fila, 1).toString());
         sexo.setSelectedItem(tablaUsuarios.getValueAt(fila, 2).toString());
-      //  tipoUs.setSelectedItem(tablaUsuarios.getValueAt(fila, 3).toString());
-        pass.setText(tablaUsuarios.getValueAt(fila, 3).toString());
+        tipoUs.setSelectedItem(tablaUsuarios.getValueAt(fila, 3).toString());
+        pass.setText(tablaUsuarios.getValueAt(fila, 4).toString());
     }
 
     void limpiaCampos() {
@@ -119,7 +119,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
         codigo.setText("");
         nombre.setText("");
         sexo.setSelectedItem("SEXO");
-     //   tipoUs.setSelectedItem("TIPO USUARIO");
+        tipoUs.setSelectedItem("TIPO USUARIO");
         pass.setText("");
         buscar.setText("");
         selecionRegistro = false;
@@ -148,6 +148,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        tipoUs = new org.bolivia.combo.SComboBoxBlue();
+        tipoUsL = new javax.swing.JLabel();
         codigo = new app.bolivia.swing.JCTextField();
         codigoL = new javax.swing.JLabel();
         pass = new jpass.JRPasswordField();
@@ -178,6 +180,13 @@ public class Usuarios extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "REGISTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tipoUs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TIPO USUARIO", "ADMINISTRADOR", "NORMAL" }));
+        tipoUs.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jPanel2.add(tipoUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 183, -1));
+
+        tipoUsL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/tipousL.png"))); // NOI18N
+        jPanel2.add(tipoUsL, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, -1, 52));
+
         codigo.setEditable(false);
         codigo.setBackground(new java.awt.Color(34, 102, 145));
         codigo.setBorder(null);
@@ -186,10 +195,10 @@ public class Usuarios extends javax.swing.JInternalFrame {
         codigo.setOpaque(false);
         codigo.setPhColor(new java.awt.Color(255, 255, 255));
         codigo.setPlaceholder("CÓDIGO");
-        jPanel2.add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 180, -1));
+        jPanel2.add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, -1));
 
         codigoL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/codigo.png"))); // NOI18N
-        jPanel2.add(codigoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, 52));
+        jPanel2.add(codigoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 52));
 
         pass.setBackground(new java.awt.Color(34, 102, 145));
         pass.setBorder(null);
@@ -203,17 +212,17 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 passKeyTyped(evt);
             }
         });
-        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 180, -1));
+        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 180, -1));
 
         passL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/contraseña.png"))); // NOI18N
-        jPanel2.add(passL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 52));
+        jPanel2.add(passL, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, 52));
 
         sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SEXO", "MASCULINO", "FEMENINO" }));
         sexo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(483, 90, 183, -1));
+        jPanel2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 183, -1));
 
         sexoL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/sexoL.png"))); // NOI18N
-        jPanel2.add(sexoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 80, -1, 52));
+        jPanel2.add(sexoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, 52));
 
         nombre.setBackground(new java.awt.Color(34, 102, 145));
         nombre.setBorder(null);
@@ -230,21 +239,21 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 nombreKeyTyped(evt);
             }
         });
-        jPanel2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 180, -1));
+        jPanel2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 180, -1));
 
         nombreL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios/nomUs.png"))); // NOI18N
-        jPanel2.add(nombreL, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, 52));
+        jPanel2.add(nombreL, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 52));
 
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÓDIGO", "NOMBRE USUARIO", "SEXO", "CONTRASEÑA"
+                "CÓDIGO", "NOMBRE USUARIO", "SEXO", "TIPO USUARIO", "CONTRASEÑA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -441,7 +450,7 @@ boolean selecionRegistro = false;
         } else {
             String pas = new String(pass.getPassword());
             if (codigo.getText().equals("") || nombre.getText().equals("") || sexo.getSelectedItem().equals("SEXO")
-                  /*  || tipoUs.getSelectedItem().equals("TIPO USUARIO") */ || pas.equals("")) {
+                    || tipoUs.getSelectedItem().equals("TIPO USUARIO")  || pas.equals("")) {
                 JOptionPane.showMessageDialog(this, "Todos los campos\nson obligatorios.", "Usuarios", 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
             } else {
@@ -449,7 +458,7 @@ boolean selecionRegistro = false;
                 us.setPrimaryKey(codigo.getText());
                 us.setNombre(nombre.getText());
                 us.setSexo(sexo.getSelectedItem().toString());
-              //  us.setTipouser(tipoUs.getSelectedItem().toString());
+                us.setTipouser(tipoUs.getSelectedItem().toString());
                 us.setPassword(pas);
                 int opcion = OpcionesUs.registrarUsuario(us);
                 if (opcion != 0) {
@@ -472,7 +481,7 @@ boolean selecionRegistro = false;
             if (tablaUsuarios.getSelectedRowCount() > 0) {
                 String pas = new String(pass.getPassword());
                 if (codigo.getText().equals("") || nombre.getText().equals("") || sexo.getSelectedItem().equals("SEXO")
-                       /* || tipoUs.getSelectedItem().equals("TIPO USUARIO") */ || pas.equals("")) {
+                        || tipoUs.getSelectedItem().equals("TIPO USUARIO")  || pas.equals("")) {
                     JOptionPane.showMessageDialog(this, "Es necesario completar\ntodos los campos.", "Usuarios", 0,
                             new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
                 } else if (JOptionPane.showConfirmDialog(this, "Esta a punto de actualizar\nun registro.\n¿Desea continuar?", "Usuarios", JOptionPane.YES_NO_OPTION, 0,
@@ -481,7 +490,7 @@ boolean selecionRegistro = false;
                     us.setPrimaryKey(codigo.getText());
                     us.setNombre(nombre.getText());
                     us.setSexo(sexo.getSelectedItem().toString());
-                  //  us.setTipouser(tipoUs.getSelectedItem().toString());
+                    us.setTipouser(tipoUs.getSelectedItem().toString());
                     us.setPassword(pas);
                     int opcion = OpcionesUs.actualizarUsuario(us);
                     if (opcion != 0) {
@@ -601,5 +610,7 @@ boolean selecionRegistro = false;
     private org.bolivia.combo.SComboBoxBlue sexo;
     private javax.swing.JLabel sexoL;
     public static javax.swing.JTable tablaUsuarios;
+    private org.bolivia.combo.SComboBoxBlue tipoUs;
+    private javax.swing.JLabel tipoUsL;
     // End of variables declaration//GEN-END:variables
 }

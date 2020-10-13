@@ -34,8 +34,8 @@ public class OpcionesUs {
             ps.setString(1, uc.getPrimaryKey());
             ps.setString(2, uc.getNombre());
             ps.setString(3, uc.getSexo());
-     //       ps.setString(4, uc.getTipouser());
-            ps.setString(4, uc.getPassword());
+            ps.setString(4, uc.getTipouser());
+            ps.setString(5, uc.getPassword());
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -51,9 +51,9 @@ public class OpcionesUs {
             ps = cn.prepareStatement(sql);
             ps.setString(1, uc.getNombre());
             ps.setString(2, uc.getSexo());
-         //   ps.setString(3, uc.getTipouser());
-            ps.setString(3, uc.getPassword());
-            ps.setString(4, uc.getPrimaryKey());
+            ps.setString(3, uc.getTipouser());
+            ps.setString(4, uc.getPassword());
+            ps.setString(5, uc.getPrimaryKey());
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -123,6 +123,21 @@ public class OpcionesUs {
             Logger.getLogger(OpcionesUs.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static String extraer_Tipo_us(String user) {
+        String c = "";
+        String SQL = "SELECT `tipo_us` FROM `usuarios` WHERE `nombre_us`= '"+user+"' ";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                c = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesUs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c.toString();
+    }
 
     public static void listarUsuario(String busca) {
         DefaultTableModel modelo = (DefaultTableModel) usuarios.Usuarios.tablaUsuarios.getModel();
@@ -145,8 +160,8 @@ public class OpcionesUs {
                 datos[0] = rs.getString("codigo_us");
                 datos[1] = rs.getString("nombre_us");
                 datos[2] = rs.getString("sexo_us");
-              //  datos[3] = rs.getString("tipo_us");
-                datos[3] = rs.getString("pass");
+                datos[3] = rs.getString("tipo_us");
+                datos[4] = rs.getString("pass");
                 modelo.addRow(datos);
             }
         } catch (SQLException ex) {

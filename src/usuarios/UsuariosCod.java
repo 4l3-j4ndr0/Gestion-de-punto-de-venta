@@ -16,12 +16,13 @@ public class UsuariosCod {
     
     public static String LISTAR_US = "SELECT * FROM usuarios ORDER BY nombre_us";
     
-    public static String REGISTRAR = "INSERT INTO usuarios(codigo_us, nombre_us, sexo_us, pass) "
-            + "VALUES(?,?,?,?)";
+    public static String REGISTRAR = "INSERT INTO usuarios(codigo_us, nombre_us, sexo_us, tipo_us, pass) "
+            + "VALUES(?,?,?,?,?)";
     
     public static String ACTUALIZAR = "UPDATE usuarios SET "
                 + "nombre_us=?, "
                 + "sexo_us=?, "
+                + "tipo_us=?, "
                 + "pass=? WHERE codigo_us=?";
     
     public static String ELIMINAR = "DELETE FROM usuarios WHERE codigo_us = ?";
