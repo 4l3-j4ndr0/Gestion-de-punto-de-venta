@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -314,7 +315,98 @@ public class OpcionesVen {
         return result;
     }
     
+    public static ArrayList all_productos(){
+        String dato="";
+        ArrayList result=new ArrayList();
+        //vendidos
+        String SQL="SELECT `descripcion` FROM `registro_venta` group by `descripcion`  ";
+        //no vendidos
+        String SQL2="SELECT `nombre_al` FROM `alimentos` WHERE `nombre_al` not in (select descripcion from registro_venta) ";
+        try {
+            Statement st = cn.createStatement();
+            
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                dato = rs.getString(1);
+                result.add(dato);
+            }
+            
+            ResultSet rs2 = st.executeQuery(SQL2);
+            while (rs2.next()) {
+                dato = rs2.getString(1);
+                result.add(dato);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesVen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
     
+    public static ArrayList get_all_productos_vendidos(){
+        String dato="";
+        ArrayList result=new ArrayList();
+        String SQL="SELECT `descripcion` FROM `registro_venta` group by `descripcion`  ";
+       
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                dato = rs.getString(1);
+                result.add(dato.replace("[", "").replace("]", "").replace(",", ""));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesVen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    public static ArrayList get_all_productos_no_vendidos(){
+        String dato="";
+        ArrayList result=new ArrayList();
+        String SQL="SELECT `nombre_al` FROM `alimentos` WHERE `nombre_al` not in (select descripcion from registro_venta) ";
+       
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                dato = rs.getString(1);
+                result.add(dato.replace("[", "").replace("]", "").replace(",", ""));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesVen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    public static int get_ventas(String producto){
+        String dato="";
+        int result=0;
+        String SQL="SELECT sum(`cantidad`) as suma FROM `registro_venta` WHERE `descripcion`='"+producto+"' ";
+       
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                dato = rs.getString(1);
+                if(dato==null){
+                    result=0;
+                }else{
+                result=Integer.parseInt(dato);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesVen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    public static ArrayList lista_all_productos(ArrayList vendidos,ArrayList no_vendidos){
+        ArrayList all=new ArrayList();
+        for(int i=0;i<=no_vendidos.size()-1;i++){
+            vendidos.add(no_vendidos.get(i).toString().replace("[", "").replace("]", "").replace(",", ""));
+        }
+        return all;
+    }
 
     public static void numeros() {
         int j;

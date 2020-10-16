@@ -5,20 +5,19 @@
  */
 package ventas;
 
-import com.placeholder.PlaceHolder;
 import deudas.RegistroDeudas;
-import static deudas.RegistroDeudas.tablaDeudas;
-import static deudas.RegistroDeudas.tablaDeudas1;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -36,13 +35,38 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JRViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import principal.EstiloTablaVentas;
 import static principal.MenuPrincipalAd.escritorio;
 import productos.OpcionesAl;
-import reportes.Campo_tabla_deudas_agrupado;
 import reportes.Campo_tabla_ventas;
 import reportes.Campo_tabla_ventas_agrupadas;
-import reportes.Campos_Tabla_Deudas;
+import javax.swing.JFrame;
+import org.jfree.chart.*;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
+import org.jfree.chart.labels.XYItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.Month;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.Year;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -67,42 +91,42 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         OpcionesVen.get_combos_productos(combo_filtro);
         cantidad_edit.setEnabled(false);
         check_restar.setEnabled(false);
-        
+
         tablaVentas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
                 if (tablaVentas.getSelectedRow() != -1) {
-                   // cambiaDatos();
-                   int fila = tablaVentas.getSelectedRow();
-                   if(on_off.isSelected()){
-                   cantidad_edit.setText(tablaVentas.getValueAt(fila, 2).toString());
-                   cantidad_edit.setForeground(Color.red);
-                   }
-                   if(check_restar.isSelected()){
+                    // cambiaDatos();
+                    int fila = tablaVentas.getSelectedRow();
+                    if (on_off.isSelected()) {
+                        cantidad_edit.setText(tablaVentas.getValueAt(fila, 2).toString());
+                        cantidad_edit.setForeground(Color.red);
+                    }
+                    if (check_restar.isSelected()) {
                         check_restar.setForeground(Color.red);
-                   }else{
-                       check_restar.setForeground(new Color(255,153,153));
-                   }
+                    } else {
+                        check_restar.setForeground(new Color(255, 153, 153));
+                    }
                     selecionRegistro = true;
                 }
             }
         });
-        
+
         tablaVentas1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
                 if (tablaVentas1.getSelectedRow() != -1) {
-                   // cambiaDatos();
-                   int fila = tablaVentas1.getSelectedRow();
-                   if(on_off.isSelected()){
-                   cantidad_edit.setText(tablaVentas1.getValueAt(fila, 1).toString());
-                   cantidad_edit.setForeground(Color.red);
-                   }
-                   if(check_restar.isSelected()){
+                    // cambiaDatos();
+                    int fila = tablaVentas1.getSelectedRow();
+                    if (on_off.isSelected()) {
+                        cantidad_edit.setText(tablaVentas1.getValueAt(fila, 1).toString());
+                        cantidad_edit.setForeground(Color.red);
+                    }
+                    if (check_restar.isSelected()) {
                         check_restar.setForeground(Color.red);
-                   }else{
-                       check_restar.setForeground(new Color(255,153,153));
-                   }
+                    } else {
+                        check_restar.setForeground(new Color(255, 153, 153));
+                    }
                     selecionRegistro = true;
                 }
             }
@@ -110,7 +134,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
     }
 
     boolean selecionRegistro = false;
-    
+
     void limpiaCampos() {
         if (tablaVentas.getSelectedRow() > -1) {
             tablaVentas.removeRowSelectionInterval(tablaVentas.getSelectedRow(), tablaVentas.getSelectedRow());
@@ -121,9 +145,9 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         fecha.setDate(null);
         buscar2.setText("");
         cantidad_edit.setText("CANTIDAD");
-        cantidad_edit.setForeground(new Color(255,153,153));
+        cantidad_edit.setForeground(new Color(255, 153, 153));
         check_restar.setSelected(false);
-        check_restar.setForeground(new Color(255,153,153));
+        check_restar.setForeground(new Color(255, 153, 153));
         OpcionesVen.listar("");
         organizar_tabla();
         montoTotal();
@@ -131,10 +155,10 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         inversion_total();
         on_off.setSelected(false);
         cantidad_edit.setEnabled(false);
-            check_restar.setSelected(false);
-            check_restar.setEnabled(false);
-            check_restar.setForeground(new Color(255,153,153));
-            cantidad_edit.setText("CANTIDAD");
+        check_restar.setSelected(false);
+        check_restar.setEnabled(false);
+        check_restar.setForeground(new Color(255, 153, 153));
+        cantidad_edit.setText("CANTIDAD");
         //organizar_tabla();
     }
 
@@ -188,6 +212,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         check_restar = new javax.swing.JCheckBox();
         on_off = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "OPCIONES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -597,17 +622,35 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 5, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 6, -1, -1));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/grafic.png"))); // NOI18N
+        jButton2.setToolTipText("Graficar Estadisticas de Ventas");
+        jButton2.setBorder(null);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/grafic2.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 6, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 917, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 917, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -643,7 +686,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Registro Ventas", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
-        
+
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void eliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarTActionPerformed
@@ -664,20 +707,20 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Registro Ventas", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
-        
+
     }//GEN-LAST:event_eliminarTActionPerformed
 
     private void buscFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscFActionPerformed
         if (fecha.getDate() == null) {
             OpcionesVen.listar("");
-            
+
             ganancia_total();
         } else {
             String formato = fecha.getDateFormatString();
             Date date = fecha.getDate();
             SimpleDateFormat sdf = new SimpleDateFormat(formato);
             OpcionesVen.listar(String.valueOf(sdf.format(date)));
-            
+
             ganancia_total();
         }
         organizar_tabla();
@@ -689,138 +732,136 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         String fecH = formato.format(sistemaFech);
         OpcionesVen.listar(fecH);
         fecha.setDate(null);
-        
+
         ganancia_total();
         inversion_total();
     }//GEN-LAST:event_ventasHActionPerformed
 
-    public void montoTotal(){
-        double total=0;
-        double ganancia=0;
-       /* Date sistemaFech = new Date();
+    public void montoTotal() {
+        double total = 0;
+        double ganancia = 0;
+        /* Date sistemaFech = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecH = formato.format(sistemaFech);*/
-       
-       //inversion
-       if(tablaVentas.getRowCount()<1){
-           monto_total.setText(String.valueOf(total));
-       }else{
-        for(int i=0;i<tablaVentas.getRowCount();i++){
-           total+= Double.parseDouble(tablaVentas.getValueAt(i, 4).toString());
+
+        //inversion
+        if (tablaVentas.getRowCount() < 1) {
+            monto_total.setText(String.valueOf(total));
+        } else {
+            for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+                total += Double.parseDouble(tablaVentas.getValueAt(i, 4).toString());
+            }
+            // GANANCIA
+            for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+                ganancia += Double.parseDouble(tablaVentas.getValueAt(i, 5).toString());
+            }
+            // monto.setText(String.valueOf(total+ganancia));
+            monto_total.setText(String.valueOf(total + ganancia));
         }
-        // GANANCIA
-        for(int i=0;i<tablaVentas.getRowCount();i++){
-           ganancia+= Double.parseDouble(tablaVentas.getValueAt(i, 5).toString());
-        }
-        // monto.setText(String.valueOf(total+ganancia));
-      monto_total.setText(String.valueOf(total+ganancia));
-    }
-      
+
     }
 
-    
-    
-    public void inversion_total(){
-        double inversion=0;
-       /* Date sistemaFech = new Date();
+    public void inversion_total() {
+        double inversion = 0;
+        /* Date sistemaFech = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecH = formato.format(sistemaFech);*/
-       if(tablaVentas.getRowCount()<1){
-           inversion_total.setText(String.valueOf(inversion));
-       }else{
-        for(int i=0;i<tablaVentas.getRowCount();i++){
-           inversion+= Double.parseDouble(tablaVentas.getValueAt(i, 4).toString());
+        if (tablaVentas.getRowCount() < 1) {
+            inversion_total.setText(String.valueOf(inversion));
+        } else {
+            for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+                inversion += Double.parseDouble(tablaVentas.getValueAt(i, 4).toString());
+            }
+            // inversion_total.setText(String.valueOf(inversion));
+            inversion_total.setText(String.valueOf(inversion));
         }
-         // inversion_total.setText(String.valueOf(inversion));
-      inversion_total.setText(String.valueOf(inversion));
     }
-    }
-    
-    public void ganancia_total(){
-        double ganancia=0;
-       /* Date sistemaFech = new Date();
+
+    public void ganancia_total() {
+        double ganancia = 0;
+        /* Date sistemaFech = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecH = formato.format(sistemaFech);*/
-       if(tablaVentas.getRowCount()<1){
-           ganancia_total.setText(String.valueOf(ganancia));
-       }else{
-        for(int i=0;i<tablaVentas.getRowCount();i++){
-           ganancia+= Double.parseDouble(tablaVentas.getValueAt(i, 5).toString());
-           
+        if (tablaVentas.getRowCount() < 1) {
+            ganancia_total.setText(String.valueOf(ganancia));
+        } else {
+            for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+                ganancia += Double.parseDouble(tablaVentas.getValueAt(i, 5).toString());
+
+            }
+            //  ganancia_total.setText(String.valueOf(ganancia));
+            ganancia_total.setText(String.valueOf(ganancia));
         }
-      //  ganancia_total.setText(String.valueOf(ganancia));
-      ganancia_total.setText(String.valueOf(ganancia));
     }
-    }
-    
-    public void ganancia_total_x_producto(){
-        double ganancia=0;
-       /* Date sistemaFech = new Date();
+
+    public void ganancia_total_x_producto() {
+        double ganancia = 0;
+        /* Date sistemaFech = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecH = formato.format(sistemaFech);*/
-       if(tablaVentas1.getRowCount()<1){
-           ganancia_total.setText(String.valueOf(ganancia));
-       }else{
-        for(int i=0;i<tablaVentas1.getRowCount();i++){
-           ganancia+= Double.parseDouble(tablaVentas1.getValueAt(i, 4).toString());
-           
-        }
-        ganancia_total.setText(String.valueOf(ganancia));
-    }
-    }
-    
-    public void montoTotal_x_producto(){
-        double total=0;
-       if(tablaVentas1.getRowCount()<1){
-           monto_total.setText(String.valueOf(total));
-       }else{
-        for(int i=0;i<tablaVentas1.getRowCount();i++){
-           total+= Double.parseDouble(tablaVentas1.getValueAt(i, 2).toString());
+        if (tablaVentas1.getRowCount() < 1) {
+            ganancia_total.setText(String.valueOf(ganancia));
+        } else {
+            for (int i = 0; i < tablaVentas1.getRowCount(); i++) {
+                ganancia += Double.parseDouble(tablaVentas1.getValueAt(i, 4).toString());
+
+            }
+            ganancia_total.setText(String.valueOf(ganancia));
         }
     }
-       monto_total.setText(String.valueOf(total));
-    }
-    
-    public void inversion_total_x_producto(){
-        double inversion=0;
-       /* Date sistemaFech = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String fecH = formato.format(sistemaFech);*/
-       if(tablaVentas1.getRowCount()<1){
-           inversion_total.setText(String.valueOf(inversion));
-       }else{
-        for(int i=0;i<tablaVentas1.getRowCount();i++){
-           inversion+= Double.parseDouble(tablaVentas1.getValueAt(i, 3).toString());
-           inversion_total.setText(String.valueOf(inversion));
-        }
-    }
-    }
-    
-    public void organizar_tabla(){
-        String numero="";
-        int fila=0;
-      //  tablaVentas.setDefaultRenderer(Object.class, new principal.EstiloTablaVentas());
-      //  EstiloTablaVentas estilo=new EstiloTablaVentas();
-        for(int i=0;i<tablaVentas.getRowCount()-1;i++){
-            numero=tablaVentas.getValueAt(fila, 0).toString();
-            if(numero.equals(tablaVentas.getValueAt(i+1, 0).toString())){
-                tablaVentas.setValueAt("", i+1, 0);
-                tablaVentas.setValueAt("", i+1, 3);
-                tablaVentas.setValueAt("", i+1, 6);
-            }else{
-                fila=i+1;
+
+    public void montoTotal_x_producto() {
+        double total = 0;
+        if (tablaVentas1.getRowCount() < 1) {
+            monto_total.setText(String.valueOf(total));
+        } else {
+            for (int i = 0; i < tablaVentas1.getRowCount(); i++) {
+                total += Double.parseDouble(tablaVentas1.getValueAt(i, 2).toString());
             }
         }
-        
+        monto_total.setText(String.valueOf(total));
     }
-    
+
+    public void inversion_total_x_producto() {
+        double inversion = 0;
+        /* Date sistemaFech = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fecH = formato.format(sistemaFech);*/
+        if (tablaVentas1.getRowCount() < 1) {
+            inversion_total.setText(String.valueOf(inversion));
+        } else {
+            for (int i = 0; i < tablaVentas1.getRowCount(); i++) {
+                inversion += Double.parseDouble(tablaVentas1.getValueAt(i, 3).toString());
+                inversion_total.setText(String.valueOf(inversion));
+            }
+        }
+    }
+
+    public void organizar_tabla() {
+        String numero = "";
+        int fila = 0;
+        //  tablaVentas.setDefaultRenderer(Object.class, new principal.EstiloTablaVentas());
+        //  EstiloTablaVentas estilo=new EstiloTablaVentas();
+        for (int i = 0; i < tablaVentas.getRowCount() - 1; i++) {
+            numero = tablaVentas.getValueAt(fila, 0).toString();
+            if (numero.equals(tablaVentas.getValueAt(i + 1, 0).toString())) {
+                tablaVentas.setValueAt("", i + 1, 0);
+                tablaVentas.setValueAt("", i + 1, 3);
+                tablaVentas.setValueAt("", i + 1, 6);
+            } else {
+                fila = i + 1;
+            }
+        }
+
+    }
+
     private void eliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar1ActionPerformed
         // TODO add your handling code here:
-                elimina_desagrupado();
-           
+        elimina_desagrupado();
+
     }//GEN-LAST:event_eliminar1ActionPerformed
 
-    public void elimina_desagrupado(){
+    public void elimina_desagrupado() {
         if (tablaVentas.getRowCount() > 0) {
             if (tablaVentas.getSelectedRowCount() > 0) {
                 Runnable runnable1 = new Runnable() {
@@ -828,70 +869,70 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         RegistroVentas.this.setEnabled(false);
                         //inicio metodo
-                    int fila = tablaVentas.getSelectedRow();
-                    int fila2 = tablaVentas.getSelectedRow();
-                     String id ="";
-                String descripcion =tablaVentas.getValueAt(fila, 1).toString();
-                     String cant=String.valueOf(Integer.parseInt(tablaVentas.getValueAt(fila, 2).toString()));
-                     
-                    if(!tablaVentas.getValueAt(fila, 0).toString().equals("")){
+                        int fila = tablaVentas.getSelectedRow();
+                        int fila2 = tablaVentas.getSelectedRow();
+                        String id = "";
+                        String descripcion = tablaVentas.getValueAt(fila, 1).toString();
+                        String cant = String.valueOf(Integer.parseInt(tablaVentas.getValueAt(fila, 2).toString()));
+
+                        if (!tablaVentas.getValueAt(fila, 0).toString().equals("")) {
                             id = tablaVentas.getValueAt(fila, 0).toString();
-                    }else{
-                        while(tablaVentas.getValueAt(fila, 0).toString().equals("")){
-                            fila-=1;
+                        } else {
+                            while (tablaVentas.getValueAt(fila, 0).toString().equals("")) {
+                                fila -= 1;
+                            }
+                            id = tablaVentas.getValueAt(fila, 0).toString();
                         }
-                        id = tablaVentas.getValueAt(fila, 0).toString();
-                    }
-                    // hasta aki muestra bien el id de venta
-                    if(!on_off.isSelected()){
-                        
-                        if (JOptionPane.showConfirmDialog(RegistroVentas.this, "Esta a punto de eliminar\nun registro.\n¿Desea continuar?", "Registro Ventas", JOptionPane.YES_NO_OPTION, 0,
-                        new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
-                            OpcionesVen.actualizar(descripcion,cant);  // actualiza y recalcula en tabla alimentos los productos
-                   try{
-                            OpcionesVen.eliminar_dos(id, descripcion);  // elimina fila de tabla ventas 
-                    OpcionesVen.actualizar_y_recalcular_registro_venta(id);  // el nombre del metodo lo dice
-                    limpiaCampos();
-                   }catch(Exception e){
-                       JOptionPane.showMessageDialog(null, e);
-                   }
-                    JOptionPane.showMessageDialog(RegistroVentas.this, "Registro eliminado.", "Registro Ventas", 0,
-                                new ImageIcon(getClass().getResource("/imagenes/caja/borrado1.png")));
-                        if (principal.MenuPrincipalAd.cerra) {
-                            OpcionesVen.numeros();
-                        }
-                    }
+                        // hasta aki muestra bien el id de venta
+                        if (!on_off.isSelected()) {
+
+                            if (JOptionPane.showConfirmDialog(RegistroVentas.this, "Esta a punto de eliminar\nun registro.\n¿Desea continuar?", "Registro Ventas", JOptionPane.YES_NO_OPTION, 0,
+                                    new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
+                                OpcionesVen.actualizar(descripcion, cant);  // actualiza y recalcula en tabla alimentos los productos
+                                try {
+                                    OpcionesVen.eliminar_dos(id, descripcion);  // elimina fila de tabla ventas 
+                                    OpcionesVen.actualizar_y_recalcular_registro_venta(id);  // el nombre del metodo lo dice
+                                    limpiaCampos();
+                                } catch (Exception e) {
+                                    JOptionPane.showMessageDialog(null, e);
+                                }
+                                JOptionPane.showMessageDialog(RegistroVentas.this, "Registro eliminado.", "Registro Ventas", 0,
+                                        new ImageIcon(getClass().getResource("/imagenes/caja/borrado1.png")));
+                                if (principal.MenuPrincipalAd.cerra) {
+                                    OpcionesVen.numeros();
+                                }
+                            }
 //                    
-                    }else{
-                        System.out.println("cantidad a editar:"+cantidad_edit.getText());
-                            System.out.println("cantidad en la tabla: "+Integer.parseInt(tablaVentas.getValueAt(fila2, 2).toString()));
-                        if(Integer.parseInt(cantidad_edit.getText())<Integer.parseInt(tablaVentas.getValueAt(fila2, 2).toString())){
-                            
-                           if (JOptionPane.showConfirmDialog(RegistroVentas.this, "Esta a punto de editar\nun registro.\n¿Desea continuar?", "Registro Ventas", JOptionPane.YES_NO_OPTION, 0,
-                        new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
-                               
-                       OpcionesVen.actualizar_con_on_of(descripcion, cantidad_edit.getText(), id, activo(check_restar)); // actualizar almacen 
-                       OpcionesVen.eliminar_tres(id,descripcion , cantidad_edit.getText(),activo(check_restar));
-                       OpcionesVen.actualizar_y_recalcular_registro_venta2(descripcion,cantidad_edit.getText() ,id);  // el nombre del metodo lo dice
-                       OpcionesVen.actualizar_y_recalcular_total_registro_venta(id);
-                       limpiaCampos();
-                       
-                    JOptionPane.showMessageDialog(RegistroVentas.this, "Registro actualizado.", "Registro Ventas", 0,
-                                new ImageIcon(getClass().getResource("/imagenes/caja/borrado1.png")));
-                        if (principal.MenuPrincipalAd.cerra) {
-                            OpcionesVen.numeros();
+                        } else {
+                            System.out.println("cantidad a editar:" + cantidad_edit.getText());
+                            System.out.println("cantidad en la tabla: " + Integer.parseInt(tablaVentas.getValueAt(fila2, 2).toString()));
+                            if (Integer.parseInt(cantidad_edit.getText()) < Integer.parseInt(tablaVentas.getValueAt(fila2, 2).toString())) {
+
+                                if (JOptionPane.showConfirmDialog(RegistroVentas.this, "Esta a punto de editar\nun registro.\n¿Desea continuar?", "Registro Ventas", JOptionPane.YES_NO_OPTION, 0,
+                                        new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
+
+                                    OpcionesVen.actualizar_con_on_of(descripcion, cantidad_edit.getText(), id, activo(check_restar)); // actualizar almacen 
+                                    OpcionesVen.eliminar_tres(id, descripcion, cantidad_edit.getText(), activo(check_restar));
+                                    OpcionesVen.actualizar_y_recalcular_registro_venta2(descripcion, cantidad_edit.getText(), id);  // el nombre del metodo lo dice
+                                    OpcionesVen.actualizar_y_recalcular_total_registro_venta(id);
+                                    limpiaCampos();
+
+                                    JOptionPane.showMessageDialog(RegistroVentas.this, "Registro actualizado.", "Registro Ventas", 0,
+                                            new ImageIcon(getClass().getResource("/imagenes/caja/borrado1.png")));
+                                    if (principal.MenuPrincipalAd.cerra) {
+                                        OpcionesVen.numeros();
+                                    }
+                                }
+                            } else {
+
+                                JOptionPane.showMessageDialog(RegistroVentas.this, "La cantidad a editar debe ser menor que la cantidad actual.\n"
+                                        + "Si desea aumentar el número de ventas por favor hágalo desde la 'CAJA DE COBRO'", "Registro Ventas", 0,
+                                        new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")));
+                            }
                         }
-                           }
-                        }else{
-                             
-                            JOptionPane.showMessageDialog(RegistroVentas.this, "La cantidad a editar debe ser menor que la cantidad actual.\n"
-                                    + "Si desea aumentar el número de ventas por favor hágalo desde la 'CAJA DE COBRO'", "Registro Ventas", 0,
-                        new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")));
-                        }
-                    }
-                
-         //       }
-           RegistroVentas.this.setEnabled(true);
+
+                        //       }
+                        RegistroVentas.this.setEnabled(true);
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                     }
                 };
@@ -907,37 +948,37 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
     }
-        
-    public boolean activo(JCheckBox checbox){
-        boolean activo=false;
-        if(checbox.isSelected()){
-            activo=true;
+
+    public boolean activo(JCheckBox checbox) {
+        boolean activo = false;
+        if (checbox.isSelected()) {
+            activo = true;
         }
         return activo;
     }
-    
+
     private void eliminarT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarT1ActionPerformed
         // TODO add your handling code here:
-       if (tablaVentas.getRowCount() > 0) {
+        if (tablaVentas.getRowCount() > 0) {
             if (JOptionPane.showConfirmDialog(this, "Esta a punto de elimnar todos los registros.\nEstos productos no seran reintegrados al almacen\n¿Desea continuar?", "Registro Ventas", JOptionPane.YES_NO_OPTION, 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
-               Runnable runnable1 = new Runnable() {
+                Runnable runnable1 = new Runnable() {
                     public void run() {
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         RegistroVentas.this.setEnabled(false);
                         //inicio metodo
                         //code
                         //fin metodo
-                int eliminaT = OpcionesVen.eliminaTodos();
-                if (eliminaT != 0) {
-                    limpiaCampos();
-                    JOptionPane.showMessageDialog(RegistroVentas.this, "Registros eliminados.", "Registro Ventas", 0,
-                            new ImageIcon(getClass().getResource("/imagenes/caja/borrado.png")));
-                    if (principal.MenuPrincipalAd.cerra) {
-                        OpcionesVen.numeros();
-                    }
-                }
-                RegistroVentas.this.setEnabled(true);
+                        int eliminaT = OpcionesVen.eliminaTodos();
+                        if (eliminaT != 0) {
+                            limpiaCampos();
+                            JOptionPane.showMessageDialog(RegistroVentas.this, "Registros eliminados.", "Registro Ventas", 0,
+                                    new ImageIcon(getClass().getResource("/imagenes/caja/borrado.png")));
+                            if (principal.MenuPrincipalAd.cerra) {
+                                OpcionesVen.numeros();
+                            }
+                        }
+                        RegistroVentas.this.setEnabled(true);
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                     }
                 };
@@ -948,15 +989,15 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay registros\npara eliminar.", "Registro Ventas", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
-        
+
         ganancia_total();
     }//GEN-LAST:event_eliminarT1ActionPerformed
 
     private void limpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiar1ActionPerformed
         // TODO add your handling code here:
-        if(!check_filtro.isSelected()){
-        limpiaCampos();
-        }else{
+        if (!check_filtro.isSelected()) {
+            limpiaCampos();
+        } else {
             combo_filtro.setSelectedIndex(0);
             limpiaCampos();
         }
@@ -968,169 +1009,167 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecH = formato.format(sistemaFech);
         Runnable runnable1 = new Runnable() {
-                    public void run() {
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                        RegistroVentas.this.setEnabled(false);
-                        //inicio metodo
-                        //code
-                        //fin metodo
-        OpcionesVen.listar(fecH);
-        fecha.setDate(null);
-        
-            montoTotal();
-            ganancia_total();
-            inversion_total();
-        organizar_tabla();
-        RegistroVentas.this.setEnabled(true);
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                    }
-                };
-                Thread t1 = new Thread(runnable1);
-                t1.start();
+            public void run() {
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                RegistroVentas.this.setEnabled(false);
+                //inicio metodo
+                //code
+                //fin metodo
+                OpcionesVen.listar(fecH);
+                fecha.setDate(null);
+
+                montoTotal();
+                ganancia_total();
+                inversion_total();
+                organizar_tabla();
+                RegistroVentas.this.setEnabled(true);
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            }
+        };
+        Thread t1 = new Thread(runnable1);
+        t1.start();
     }//GEN-LAST:event_ventasH1ActionPerformed
 
     private void ventasH2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasH2ActionPerformed
         // TODO add your handling code here:
         Runnable runnable1 = new Runnable() {
-                    public void run() {
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                        RegistroVentas.this.setEnabled(false);
-                        //inicio metodo
-                        //code
-                        //fin metodo
-        OpcionesVen.listar("");
-        fecha.setDate(null);
-            montoTotal();
-            ganancia_total();
-            inversion_total();
-        organizar_tabla();
-        RegistroVentas.this.setEnabled(true);
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                    }
-                };
-                Thread t1 = new Thread(runnable1);
-                t1.start();
+            public void run() {
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                RegistroVentas.this.setEnabled(false);
+                //inicio metodo
+                //code
+                //fin metodo
+                OpcionesVen.listar("");
+                fecha.setDate(null);
+                montoTotal();
+                ganancia_total();
+                inversion_total();
+                organizar_tabla();
+                RegistroVentas.this.setEnabled(true);
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            }
+        };
+        Thread t1 = new Thread(runnable1);
+        t1.start();
     }//GEN-LAST:event_ventasH2ActionPerformed
 
-    
-   public void cambia_texto (String elTexto)
-   {
-      inversion_total.setText(elTexto);
-   }
-    
+    public void cambia_texto(String elTexto) {
+        inversion_total.setText(elTexto);
+    }
+
     private void check_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_filtroActionPerformed
         // TODO add your handling code here:
-        
-        if(check_filtro.isSelected()){
+
+        if (check_filtro.isSelected()) {
             Runnable runnable1 = new Runnable() {
-                    public void run() {
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-                        RegistroVentas.this.setEnabled(false);
-                        //inicio metodo
-                        //code
-                        //fin metodo
-            limpiaCampos();
-        combo_filtro.setVisible(true);
-        on_off.setEnabled(false);
-        panel_no_agrupado.setVisible(false);
-        panel_agrupado.setVisible(true);
-        ventasH1.setEnabled(false);
-         ventasH2.setEnabled(false);
-         eliminar1.setEnabled(false);
-         eliminarT1.setEnabled(false);
-         limpiar1.setEnabled(true);
-         fecha.setEnabled(false);
-         buscF.setEnabled(false);
-         
-        OpcionesVen.listar_por_producto(combo_filtro.getSelectedItem().toString());
-        tablaVentas1.getTableHeader().setDefaultRenderer(new principal.EstiloTablaHeader());
-        tablaVentas1.setDefaultRenderer(Object.class, new principal.EstiloTablaVentasAgrupado());
-        ganancia_total_x_producto();
-        montoTotal_x_producto();
-        inversion_total_x_producto();
-        RegistroVentas.this.setEnabled(true);
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                    }
-                };
-                Thread t1 = new Thread(runnable1);
-                t1.start();
-        }else{
-             Runnable runnable1 = new Runnable() {
-                    public void run() {
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                        RegistroVentas.this.setEnabled(false);
-                        //inicio metodo
-                        //code
-                        //fin metodo
-            limpiaCampos();
-            on_off.setEnabled(true);
-            combo_filtro.setVisible(false);
-            panel_no_agrupado.setVisible(true);
-            panel_agrupado.setVisible(false);
-            ventasH1.setEnabled(true);
-         ventasH2.setEnabled(true);
-         eliminar1.setEnabled(true);
-         eliminarT1.setEnabled(true);
-         limpiar1.setEnabled(true);
-         panel_inversion.setEnabled(true);
-         fecha.setEnabled(true);
-         buscF.setEnabled(true);
-         RegistroVentas.this.setEnabled(true);
-                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                    }
-                };
-                Thread t1 = new Thread(runnable1);
-                t1.start();
+                public void run() {
+                    escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+                    RegistroVentas.this.setEnabled(false);
+                    //inicio metodo
+                    //code
+                    //fin metodo
+                    limpiaCampos();
+                    combo_filtro.setVisible(true);
+                    on_off.setEnabled(false);
+                    panel_no_agrupado.setVisible(false);
+                    panel_agrupado.setVisible(true);
+                    ventasH1.setEnabled(false);
+                    ventasH2.setEnabled(false);
+                    eliminar1.setEnabled(false);
+                    eliminarT1.setEnabled(false);
+                    limpiar1.setEnabled(true);
+                    fecha.setEnabled(false);
+                    buscF.setEnabled(false);
+
+                    OpcionesVen.listar_por_producto(combo_filtro.getSelectedItem().toString());
+                    tablaVentas1.getTableHeader().setDefaultRenderer(new principal.EstiloTablaHeader());
+                    tablaVentas1.setDefaultRenderer(Object.class, new principal.EstiloTablaVentasAgrupado());
+                    ganancia_total_x_producto();
+                    montoTotal_x_producto();
+                    inversion_total_x_producto();
+                    RegistroVentas.this.setEnabled(true);
+                    escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                }
+            };
+            Thread t1 = new Thread(runnable1);
+            t1.start();
+        } else {
+            Runnable runnable1 = new Runnable() {
+                public void run() {
+                    escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                    RegistroVentas.this.setEnabled(false);
+                    //inicio metodo
+                    //code
+                    //fin metodo
+                    limpiaCampos();
+                    on_off.setEnabled(true);
+                    combo_filtro.setVisible(false);
+                    panel_no_agrupado.setVisible(true);
+                    panel_agrupado.setVisible(false);
+                    ventasH1.setEnabled(true);
+                    ventasH2.setEnabled(true);
+                    eliminar1.setEnabled(true);
+                    eliminarT1.setEnabled(true);
+                    limpiar1.setEnabled(true);
+                    panel_inversion.setEnabled(true);
+                    fecha.setEnabled(true);
+                    buscF.setEnabled(true);
+                    RegistroVentas.this.setEnabled(true);
+                    escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                }
+            };
+            Thread t1 = new Thread(runnable1);
+            t1.start();
         }
     }//GEN-LAST:event_check_filtroActionPerformed
 
     private void combo_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_filtroActionPerformed
         // TODO add your handling code here:
-        if(check_filtro.isSelected()){
-        OpcionesVen.listar_por_producto(combo_filtro.getSelectedItem().toString());
-        montoTotal_x_producto();
-        ganancia_total_x_producto();
-        inversion_total_x_producto();
+        if (check_filtro.isSelected()) {
+            OpcionesVen.listar_por_producto(combo_filtro.getSelectedItem().toString());
+            montoTotal_x_producto();
+            ganancia_total_x_producto();
+            inversion_total_x_producto();
         }
     }//GEN-LAST:event_combo_filtroActionPerformed
 
     private void check_restarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_restarActionPerformed
         // TODO add your handling code here:
-        if(check_restar.isSelected()){
+        if (check_restar.isSelected()) {
             check_restar.setForeground(Color.red);
             cantidad_edit.setText("");
             cantidad_edit.requestFocus();
-        }else{
-            check_restar.setForeground(new Color(255,153,153));
+        } else {
+            check_restar.setForeground(new Color(255, 153, 153));
         }
     }//GEN-LAST:event_check_restarActionPerformed
 
     private void on_offActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_on_offActionPerformed
         // TODO add your handling code here:
         if (tablaVentas.getSelectedRowCount() > 0) {
-        if(on_off.isSelected()){
-            cantidad_edit.setEnabled(true);
-            check_restar.setEnabled(true);
-            check_restar.setSelected(false);
-            check_restar.setForeground(new Color(255,153,153));
-            cantidad_edit.setForeground(new Color(255,153,153));
-            if(check_filtro.isSelected()){
-                int fila = tablaVentas1.getSelectedRow();
-            cantidad_edit.setText(tablaVentas1.getValueAt(fila, 2).toString());
-            cantidad_edit.setForeground(Color.red);
-            }else{
-                int fila = tablaVentas.getSelectedRow();
-            cantidad_edit.setText(tablaVentas.getValueAt(fila, 2).toString());
-            cantidad_edit.setForeground(Color.red);
+            if (on_off.isSelected()) {
+                cantidad_edit.setEnabled(true);
+                check_restar.setEnabled(true);
+                check_restar.setSelected(false);
+                check_restar.setForeground(new Color(255, 153, 153));
+                cantidad_edit.setForeground(new Color(255, 153, 153));
+                if (check_filtro.isSelected()) {
+                    int fila = tablaVentas1.getSelectedRow();
+                    cantidad_edit.setText(tablaVentas1.getValueAt(fila, 2).toString());
+                    cantidad_edit.setForeground(Color.red);
+                } else {
+                    int fila = tablaVentas.getSelectedRow();
+                    cantidad_edit.setText(tablaVentas.getValueAt(fila, 2).toString());
+                    cantidad_edit.setForeground(Color.red);
+                }
+            } else {
+                cantidad_edit.setEnabled(false);
+                check_restar.setSelected(false);
+                check_restar.setEnabled(false);
+                check_restar.setForeground(new Color(255, 153, 153));
+                cantidad_edit.setText("CANTIDAD");
             }
-        }else{
-            cantidad_edit.setEnabled(false);
-            check_restar.setSelected(false);
-            check_restar.setEnabled(false);
-            check_restar.setForeground(new Color(255,153,153));
-            cantidad_edit.setText("CANTIDAD");
-        }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Primero debe seleccionar un registro\n.", "Registro Ventas", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
             on_off.setSelected(false);
@@ -1140,30 +1179,30 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
     private void buscar2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar2KeyReleased
         // TODO add your handling code here:
         buscar2.setText(buscar2.getText().toUpperCase());
-        if(!check_filtro.isSelected()){
-        OpcionesVen.listar_buscar(buscar2.getText());
-        for (int i = 0; i < tablaVentas.getRowCount(); i++) {
-            tablaVentas.setValueAt(String.valueOf(Double.parseDouble(tablaVentas.getValueAt(i, 4).toString())+Double.parseDouble(tablaVentas.getValueAt(i, 5).toString())), i, 3);
-        }
-        ganancia_total();
+        if (!check_filtro.isSelected()) {
+            OpcionesVen.listar_buscar(buscar2.getText());
+            for (int i = 0; i < tablaVentas.getRowCount(); i++) {
+                tablaVentas.setValueAt(String.valueOf(Double.parseDouble(tablaVentas.getValueAt(i, 4).toString()) + Double.parseDouble(tablaVentas.getValueAt(i, 5).toString())), i, 3);
+            }
+            ganancia_total();
             montoTotal();
             inversion_total();
             organizar_tabla();
-        }else{
+        } else {
             OpcionesVen.listar_buscar_con_filtro(buscar2.getText());
             ganancia_total_x_producto();
             montoTotal_x_producto();
             inversion_total_x_producto();
             organizar_tabla();
         }
-        if(buscar2.getText().equals("")){
-        limpiaCampos();
+        if (buscar2.getText().equals("")) {
+            limpiaCampos();
         }
     }//GEN-LAST:event_buscar2KeyReleased
 
     private void buscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar2ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_buscar2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1173,9 +1212,9 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
                 RegistroVentas.this.setEnabled(false);
                 //inicio metodo
-                if(!check_filtro.isSelected()){
+                if (!check_filtro.isSelected()) {
                     crea_reporte_desagrupado();
-                }else{
+                } else {
                     crea_reporte_agrupado();
                 }
                 //fin metodo
@@ -1187,84 +1226,229 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         t1.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void crea_reporte_desagrupado(){
-        try {
-                            int fila=0;
-                            String datos="";
-                            String ruta_logo="imagenes/logo3.png";
-                            List resultados=new ArrayList();
-                            Campo_tabla_ventas tipo;
-                            resultados.clear();
-                            //recorrer la tabla
-                            for(fila=0;fila<tablaVentas.getRowCount();fila++){
-                                tipo=new Campo_tabla_ventas(tablaVentas.getValueAt(fila, 1).toString(), tablaVentas.getValueAt(fila, 2).toString(), RegistroDeudas.diseñador(tablaVentas.getValueAt(fila, 3).toString()), tablaVentas.getValueAt(fila, 6).toString());
-                                resultados.add(tipo);
-                            }
-                            Map map=new HashMap();
-                            JasperPrint jprPrint;
-                            JDialog reporte=new JDialog();
-                            reporte.setSize(900,700);
-                            reporte.setLocationRelativeTo(null);
-                            reporte.setTitle("REGISTRO VENTAS");
-                            Image icon = new ImageIcon(getClass().getResource("/imagenes/caja/icono1.png")).getImage();
-                            reporte.setIconImage(icon);
-                            
-                            map.put("columna_monto_total",monto_total.getText());
-                            map.put("columna_total_ventas", OpcionesAl.extraer_totales("SELECT sum(cantidad) FROM registro_venta"));
-                            map.put("columna_inversion",inversion_total.getText());
-                            map.put("columna_ganancia",ganancia_total.getText());
-                            map.put("logo",ruta_logo);
-                            
-                            jprPrint=JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla.jasper"),
-                                    map,new JRBeanCollectionDataSource(resultados));
-                            JRViewer jv=new JRViewer(jprPrint);
-                            reporte.getContentPane().add(jv);
-                            reporte.setVisible(true);
-                            
-                            
-                        } catch (JRException ex) {
-                            Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+    private TimeSeries createSeries(String name, int scala) {
+        TimeSeries series = new TimeSeries(name);
+
+        series.add(new Year(2020), scala);
+
+        return series;
     }
 
-    public void crea_reporte_agrupado(){
+    private XYDataset createDataSet() {
+        TimeSeriesCollection tsc = new TimeSeriesCollection();
+        for (int i = 0; i < (OpcionesVen.all_productos().size()); i++) {
+            tsc.addSeries(createSeries(OpcionesVen.all_productos().get(i).toString(), OpcionesVen.get_ventas(OpcionesVen.all_productos().get(i).toString())));
+        }
+        return tsc;
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JFreeChart grafico = null;
+        JFrame f = new JFrame("BarChart");
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
+        //obtener datos y añadir datos
+        for (int i = 0; i < OpcionesVen.all_productos().size(); i++) {
+            datos.addValue(OpcionesVen.get_ventas(OpcionesVen.all_productos().get(i).toString()), "", OpcionesVen.all_productos().get(i).toString());
+        }
+        //datos grafico lineal
+
+        //decidir que tipo de grafico mostrar
+        String[] opciones = {"Grafica de Barra", "Grafica de Lineal", "Grafica de Pastel", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(f, "¿Qué grafica desea crear?", "Control",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")),
+                opciones, 3);
+
+        switch (opcion) {
+            case 0://barra
+
+                grafico = ChartFactory.createBarChart("Estadística de Ventas", "PRODUCTOS", "CANTIDAD", datos, PlotOrientation.HORIZONTAL, false, true, false);
+                BarRenderer renderer = (BarRenderer) grafico.getCategoryPlot().getRenderer();
+//                renderer.setItemMargin(-2);
+                renderer.setSeriesPaint(0, Color.blue);
+                grafico.setBackgroundPaint(new java.awt.Color(204, 204, 255));
+                CategoryPlot plot_barra = (CategoryPlot) grafico.getPlot();
+                //borde del grafico en azul
+                plot_barra.setOutlinePaint(Color.BLUE);
+                plot_barra.setOutlineStroke(new BasicStroke(2.0f));
+                //fondo del grafico en blanco
+                plot_barra.setBackgroundPaint(Color.WHITE);
+                //visible las rayas horizontal de guia y color de la misma
+                plot_barra.setRangeGridlinesVisible(true);
+                plot_barra.setRangeGridlinePaint(Color.BLACK);
+
+                break;
+            case 1://lineal
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                for (int tiempo = 0; tiempo < OpcionesVen.all_productos().size(); tiempo++) {
+                    dataset.addValue(OpcionesVen.get_ventas(OpcionesVen.all_productos().get(tiempo).toString()), "", OpcionesVen.all_productos().get(tiempo).toString());
+                }
+
+                grafico = ChartFactory.createLineChart(
+                        "Calculo estadistico",
+                        "productos",
+                        "ventas",
+                        dataset,
+                        PlotOrientation.HORIZONTAL,
+                        false,
+                        true,
+                        false
+                );
+                grafico.setBackgroundPaint(new java.awt.Color(204, 204, 255));
+                grafico.setBorderVisible(true);
+
+                CategoryPlot plot_linea = (CategoryPlot) grafico.getPlot();
+                //borde del grafico en azul
+                plot_linea.setOutlinePaint(Color.BLUE);
+                plot_linea.setOutlineStroke(new BasicStroke(2.0f));
+                //fondo del grafico en blanco
+                plot_linea.setBackgroundPaint(Color.WHITE);
+                //visible las rayas horizontal de guia y color de la misma
+                plot_linea.setRangeGridlinesVisible(true);
+                plot_linea.setRangeGridlinePaint(Color.BLACK);
+                //visible las rayas vertical de guia y color de la misma
+                plot_linea.setDomainGridlinesVisible(true);
+                plot_linea.setDomainGridlinePaint(Color.BLACK);
+                
+                LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) plot_linea.getRenderer();
+                lineandshaperenderer.setBaseShapesVisible(true);
+// line seris colors in line chart
+                lineandshaperenderer.setSeriesPaint(0, Color.BLUE);
+//        lineandshaperenderer.setSeriesPaint(1, Color.BLUE);
+//        lineandshaperenderer.setSeriesPaint(2, Color.MAGENTA);
+//        lineandshaperenderer.setSeriesPaint(3, Color.YELLOW);
+//        lineandshaperenderer.setSeriesPaint(4, Color.PINK);
+                
+                //numero encima de los putos
+                lineandshaperenderer.setItemLabelsVisible(false);
+                lineandshaperenderer.setBaseStroke(new BasicStroke(3.5f));
+
+// series font style
+                lineandshaperenderer.setSeriesItemLabelFont(0, new Font("TimesRoman", Font.BOLD, 11));
+//        lineandshaperenderer.setSeriesItemLabelFont(1, new Font("TimesRoman", Font.BOLD, 11));
+//        lineandshaperenderer.setSeriesItemLabelFont(2, new Font("TimesRoman", Font.BOLD, 12));
+//        lineandshaperenderer.setSeriesItemLabelFont(3, new Font("TimesRoman", Font.BOLD, 11));
+//        lineandshaperenderer.setSeriesItemLabelFont(4, new Font("TimesRoman", Font.BOLD, 11));
+// values colors in line chart
+                lineandshaperenderer.setSeriesItemLabelPaint(0, Color.BLACK);
+//        lineandshaperenderer.setSeriesItemLabelPaint(1, Color.WHITE);
+//        lineandshaperenderer.setSeriesItemLabelPaint(2, Color.BLACK);
+//        lineandshaperenderer.setSeriesItemLabelPaint(3, Color.YELLOW);
+//        lineandshaperenderer.setSeriesItemLabelPaint(4, Color.RED);
+
+                DecimalFormat decimalformat1 = new DecimalFormat("##");
+                lineandshaperenderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator("{2}", decimalformat1));
+                lineandshaperenderer.setSeriesPositiveItemLabelPosition(1, new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
+
+                break;
+            case 2://pastel
+                DefaultPieDataset datosPie = new DefaultPieDataset();
+                for (int i = 0; i < OpcionesVen.get_all_productos_vendidos().size(); i++) {
+                    datosPie.setValue(OpcionesVen.all_productos().get(i).toString(), OpcionesVen.get_ventas(OpcionesVen.all_productos().get(i).toString()));
+                }
+//            datosPie.setValue("Uno", dato1);
+//            datosPie.setValue("Dos", dato2);
+//            datosPie.setValue("Tres", dato3);
+//            datosPie.setValue("Cuatro", dato4);        
+                grafico = ChartFactory.createPieChart("Estadistíca de Ventas", datosPie, true, true, false);
+                grafico.setBackgroundPaint(new java.awt.Color(204, 204, 255));
+                grafico.getLegend().setPosition(RectangleEdge.LEFT);
+                Plot plot_pie = grafico.getPlot();
+                //borde del grafico en azul
+                plot_pie.setOutlinePaint(Color.BLUE);
+                plot_pie.setOutlineStroke(new BasicStroke(2.0f));
+                //fondo del grafico en blanco
+                plot_pie.setBackgroundPaint(Color.WHITE);
+                break;
+            case 3:
+                this.dispose();
+                break;
+        }
+        ChartPanel cPanel = new ChartPanel(grafico);
+        f.getContentPane().add(cPanel);
+        f.pack();
+        f.setSize(900, 600);
+        f.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void crea_reporte_desagrupado() {
         try {
-                            int fila=0;
-                            String datos="";
-                            String ruta_logo="imagenes/logo3.png";
-                            List resultados=new ArrayList();
-                            Campo_tabla_ventas_agrupadas tipo;
-                            resultados.clear();
+            int fila = 0;
+            String datos = "";
+            String ruta_logo = "imagenes/logo3.png";
+            List resultados = new ArrayList();
+            Campo_tabla_ventas tipo;
+            resultados.clear();
+            //recorrer la tabla
+            for (fila = 0; fila < tablaVentas.getRowCount(); fila++) {
+                tipo = new Campo_tabla_ventas(tablaVentas.getValueAt(fila, 1).toString(), tablaVentas.getValueAt(fila, 2).toString(), RegistroDeudas.diseñador(tablaVentas.getValueAt(fila, 3).toString()), tablaVentas.getValueAt(fila, 6).toString());
+                resultados.add(tipo);
+            }
+            Map map = new HashMap();
+            JasperPrint jprPrint;
+            JDialog reporte = new JDialog();
+            reporte.setSize(900, 700);
+            reporte.setLocationRelativeTo(null);
+            reporte.setTitle("REGISTRO VENTAS");
+            Image icon = new ImageIcon(getClass().getResource("/imagenes/caja/icono1.png")).getImage();
+            reporte.setIconImage(icon);
+
+            map.put("columna_monto_total", monto_total.getText());
+            map.put("columna_total_ventas", OpcionesAl.extraer_totales("SELECT sum(cantidad) FROM registro_venta"));
+            map.put("columna_inversion", inversion_total.getText());
+            map.put("columna_ganancia", ganancia_total.getText());
+            map.put("logo", ruta_logo);
+
+            jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+            JRViewer jv = new JRViewer(jprPrint);
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void crea_reporte_agrupado() {
+        try {
+            int fila = 0;
+            String datos = "";
+            String ruta_logo = "imagenes/logo3.png";
+            List resultados = new ArrayList();
+            Campo_tabla_ventas_agrupadas tipo;
+            resultados.clear();
 //                            recorrer la tabla
-                            for(fila=0;fila<tablaVentas1.getRowCount();fila++){
-                                tipo=new Campo_tabla_ventas_agrupadas(tablaVentas1.getValueAt(fila, 0).toString(), tablaVentas1.getValueAt(fila, 1).toString(),tablaVentas1.getValueAt(fila, 2).toString());
-                                resultados.add(tipo);
-                            }
-                            Map map=new HashMap();
-                            JasperPrint jprPrint;
-                            JDialog reporte=new JDialog();
-                            reporte.setSize(900,700);
-                            reporte.setLocationRelativeTo(null);
-                            reporte.setTitle("REGISTRO VENTAS AGRUPADAS");
-                            Image icon = new ImageIcon(getClass().getResource("/imagenes/caja/icono1.png")).getImage();
-                            reporte.setIconImage(icon);
-                            
-                            map.put("columna_monto_total",monto_total.getText());
-                            map.put("columna_total_ventas", OpcionesAl.extraer_totales("select sum(cantidad) from registro_venta"));
-                            map.put("columna_ganancia",ganancia_total.getText());
-                            map.put("columna_inversion",inversion_total.getText());
-                            map.put("logo",ruta_logo);
-                            
-                            jprPrint=JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_agrupadas.jasper"),
-                                    map,new JRBeanCollectionDataSource(resultados));
-                            JRViewer jv=new JRViewer(jprPrint);
-                            reporte.getContentPane().add(jv);
-                            reporte.setVisible(true);
-                            
-                            
-                        } catch (JRException ex) {
-                            Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+            for (fila = 0; fila < tablaVentas1.getRowCount(); fila++) {
+                tipo = new Campo_tabla_ventas_agrupadas(tablaVentas1.getValueAt(fila, 0).toString(), tablaVentas1.getValueAt(fila, 1).toString(), tablaVentas1.getValueAt(fila, 2).toString());
+                resultados.add(tipo);
+            }
+            Map map = new HashMap();
+            JasperPrint jprPrint;
+            JDialog reporte = new JDialog();
+            reporte.setSize(900, 700);
+            reporte.setLocationRelativeTo(null);
+            reporte.setTitle("REGISTRO VENTAS AGRUPADAS");
+            Image icon = new ImageIcon(getClass().getResource("/imagenes/caja/icono1.png")).getImage();
+            reporte.setIconImage(icon);
+
+            map.put("columna_monto_total", monto_total.getText());
+            map.put("columna_total_ventas", OpcionesAl.extraer_totales("select sum(cantidad) from registro_venta"));
+            map.put("columna_ganancia", ganancia_total.getText());
+            map.put("columna_inversion", inversion_total.getText());
+            map.put("logo", ruta_logo);
+
+            jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_agrupadas.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+            JRViewer jv = new JRViewer(jprPrint);
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1283,6 +1467,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel ganancia_total;
     private javax.swing.JLabel inversion_total;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
