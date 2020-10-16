@@ -381,5 +381,24 @@ public class OpcionesAl {
         return num;
     }
      
+     public static boolean existe_nombre_producto(String nombre) {
+        String c = null;
+        boolean existe=false;
+        String sql = "SELECT * FROM `alimentos` WHERE `nombre_al`='"+nombre+"'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+             if (rs.next()) {
+                c = rs.getString(1);
+            }
+            if (c != null) {
+                existe=true;
+            } 
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesAl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
      
 }

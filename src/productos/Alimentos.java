@@ -745,7 +745,12 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 Thread t1 = new Thread(runnable1);
                 t1.start();*/
             } else {
+                if(OpcionesAl.existe_nombre_producto(nombre.getText())){
+                    JOptionPane.showMessageDialog(this, "El producto: ' " + this.nombre.getText() + " '\nya existe en un registro.", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+                }else{
                 Runnable runnable1 = new Runnable() {
+                    @Override
                     public void run() {
                         escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         Alimentos.this.setEnabled(false);
@@ -784,7 +789,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 Thread t1 = new Thread(runnable1);
                 t1.start();
             }
-
+        }
         }
     }//GEN-LAST:event_registrarActionPerformed
 
