@@ -4,7 +4,7 @@ USUARIOS           ----> gestiona los usuarios que pueden entrar, editando el no
 ALMACEN            ----> se agregan, editan y eliminan productos o eliminan por tipo de producto; muestra precio compra, precio de venta y ganancia por cada producto
 REGISTRO VENTAS    ----> se muestran todas las ventas realizadas con info del producto vendido y la fecha, la fecha, ganancia, inversion; se edita, elimina venta (pasa al almacen);
                          se puede buscar por fecha, mostrar todas las ventas o las del dia nadamas; muestra ganancia total, inversion total y monto total; lista la cantidad, total , inversion y ganancia por 
-                         productos agrupados
+                         productos agrupados, ademas se puede graficar en tres formas , pastel, barra y linea , para un mejor entendimiento de loas productos mas vendidos. En el reporte se puede mostrar uno o todos los graficos o simplemente ninguno de los tres.
 CAJA REGISTRADORA  ----> es donde se le dan salida a los productos, tantos los que se pagan al momento como los que salen como deuda para pagar en un tiempo determinado
                          si se archivan como deudas se debera escribir el nombre de la persona, entidad, etc , a la q se cargara la deuda, antes de darle salida del alamacen 
                          se muestra una lista con todos los productos seleccionados y el precio a pagar, se puede ingresar el dinero que se recibe y muestra automaticamente el cambio
