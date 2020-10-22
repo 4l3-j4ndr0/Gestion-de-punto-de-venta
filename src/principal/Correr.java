@@ -6,10 +6,7 @@
 package principal;
 
 import MAC.mac;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import productos.AlimentosCod;
-import productos.OpcionesAl;
 import static java.awt.image.ImageObserver.ERROR;
 import java.net.SocketException;
 import java.sql.Connection;
@@ -17,11 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -30,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import static principal.SplashScreen.cn;
 
 /**
@@ -151,10 +142,10 @@ public class Correr {
                     JOptionPane.showMessageDialog(null, "Error en en Look and Feel", "Error", ERROR);
                 }
                 mac m = new mac();
-                if(ultimo_intento()<30){
-                    registrar_intento();
-                    new SplashScreen().setVisible(true); 
-            /*    if (tabla_mac_vacia() != 0) {
+//                if(ultimo_intento()<30){
+//                    registrar_intento();
+//                    new SplashScreen().setVisible(true); 
+                if (tabla_mac_vacia() != 0) {
                     try {
                         if (existe_mac(m.conseguirMAC().toString())) {
                             new SplashScreen().setVisible(true);
@@ -204,11 +195,11 @@ public class Correr {
                     } catch (SocketException ex) {
                         Logger.getLogger(Correr.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } */
-            }else{
-                    JOptionPane.showMessageDialog(null, "Su version de prueba de 30 usos ha expirado.\nContacte con el desarrollador del software para adquirir la versión completa", "Información", JOptionPane.INFORMATION_MESSAGE,
-                        new ImageIcon(getClass().getResource("/imagenes/policia-imagen-animada-0017.gif")));
-                }
+                } 
+//            }else{
+//                    JOptionPane.showMessageDialog(null, "Su version de prueba de 30 usos ha expirado.\nContacte con el desarrollador del software para adquirir la versión completa", "Información", JOptionPane.INFORMATION_MESSAGE,
+//                        new ImageIcon(getClass().getResource("/imagenes/policia-imagen-animada-0017.gif")));
+//                }
                   
             }
         });
