@@ -7,6 +7,9 @@
 	<parameter name="ganancia" class="java.lang.String"/>
 	<parameter name="inversion" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Proyectos\\Uruguay\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      alimentos.`tipo_al` AS alimentos_tipo_al,
@@ -181,19 +184,16 @@ FROM
 		<band height="1" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="55" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="201" y="28" width="80" height="20" uuid="52bb9293-1fd2-4b42-9d7e-cdd35b75813c"/>
+				<reportElement x="197" y="0" width="80" height="20" uuid="52bb9293-1fd2-4b42-9d7e-cdd35b75813c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="281" y="28" width="40" height="20" uuid="0b48dba7-99a1-40bb-846d-58588e83902a"/>
+				<reportElement x="277" y="0" width="40" height="20" uuid="0b48dba7-99a1-40bb-846d-58588e83902a"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
-	<summary>
-		<band height="1" splitType="Stretch"/>
-	</summary>
 </jasperReport>

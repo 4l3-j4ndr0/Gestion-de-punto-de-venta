@@ -381,7 +381,7 @@ public class OpcionesVen {
     public static int get_ventas(String producto){
         String dato="";
         int result=0;
-        String SQL="SELECT sum(`cantidad`) as suma FROM `registro_venta` WHERE `descripcion`='"+producto+"' ";
+        String SQL="SELECT sum(`cantidad`) as suma FROM `registro_venta` WHERE `descripcion`='"+producto+"'";
        
         try {
             Statement st = cn.createStatement();

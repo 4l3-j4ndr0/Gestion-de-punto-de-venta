@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.NumberAxis;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -41,6 +45,7 @@ import reportes.Campo_tabla_ventas;
 import reportes.Campo_tabla_ventas_agrupadas;
 import javax.swing.JFrame;
 import org.jfree.chart.*;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
@@ -67,6 +72,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
+import principal.conectar;
 
 /**
  *
@@ -312,7 +318,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 310, 50));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("BUSQUEDA"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fecha.setDateFormatString("dd/MM/yyyy");
@@ -628,6 +634,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         jButton2.setToolTipText("Graficar Estadisticas de Ventas");
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/grafic2.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1255,7 +1262,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
         //datos grafico lineal
 
         //decidir que tipo de grafico mostrar
-        String[] opciones = {"Grafica de Barra", "Grafica de Lineal", "Grafica de Pastel", "Cancelar"};
+        String[] opciones = {"Grafica de Barra", "Grafica de Linea", "Grafica de Pastel", "Cancelar"};
         int opcion = JOptionPane.showOptionDialog(f, "¿Qué grafica desea crear?", "Control",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")),
                 opciones, 3);
@@ -1276,8 +1283,12 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 plot_barra.setBackgroundPaint(Color.WHITE);
                 //visible las rayas horizontal de guia y color de la misma
                 plot_barra.setRangeGridlinesVisible(true);
-                plot_barra.setRangeGridlinePaint(Color.BLACK);
-
+                plot_barra.setRangeGridlinePaint(new java.awt.Color(192, 192, 192));
+                ChartPanel cPanel_barra = new ChartPanel(grafico);
+        f.getContentPane().add(cPanel_barra);
+        f.pack();
+        f.setSize(900, 600);
+        f.setVisible(true);
                 break;
             case 1://lineal
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -1286,9 +1297,9 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 }
 
                 grafico = ChartFactory.createLineChart(
-                        "Calculo estadistico",
-                        "productos",
-                        "ventas",
+                        "Estadistíca de Ventas",
+                        "Productos",
+                        "Ventas",
                         dataset,
                         PlotOrientation.HORIZONTAL,
                         false,
@@ -1297,7 +1308,6 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 );
                 grafico.setBackgroundPaint(new java.awt.Color(204, 204, 255));
                 grafico.setBorderVisible(true);
-
                 CategoryPlot plot_linea = (CategoryPlot) grafico.getPlot();
                 //borde del grafico en azul
                 plot_linea.setOutlinePaint(Color.BLUE);
@@ -1306,11 +1316,11 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 plot_linea.setBackgroundPaint(Color.WHITE);
                 //visible las rayas horizontal de guia y color de la misma
                 plot_linea.setRangeGridlinesVisible(true);
-                plot_linea.setRangeGridlinePaint(Color.BLACK);
+                plot_linea.setRangeGridlinePaint(new java.awt.Color(192, 192, 192));
                 //visible las rayas vertical de guia y color de la misma
                 plot_linea.setDomainGridlinesVisible(true);
-                plot_linea.setDomainGridlinePaint(Color.BLACK);
-                
+                plot_linea.setDomainGridlinePaint(new java.awt.Color(192, 192, 192));
+
                 LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) plot_linea.getRenderer();
                 lineandshaperenderer.setBaseShapesVisible(true);
 // line seris colors in line chart
@@ -1319,7 +1329,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
 //        lineandshaperenderer.setSeriesPaint(2, Color.MAGENTA);
 //        lineandshaperenderer.setSeriesPaint(3, Color.YELLOW);
 //        lineandshaperenderer.setSeriesPaint(4, Color.PINK);
-                
+
                 //numero encima de los putos
                 lineandshaperenderer.setItemLabelsVisible(false);
                 lineandshaperenderer.setBaseStroke(new BasicStroke(3.5f));
@@ -1340,7 +1350,11 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 DecimalFormat decimalformat1 = new DecimalFormat("##");
                 lineandshaperenderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator("{2}", decimalformat1));
                 lineandshaperenderer.setSeriesPositiveItemLabelPosition(1, new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
-
+ChartPanel cPanel_linea = new ChartPanel(grafico);
+        f.getContentPane().add(cPanel_linea);
+        f.pack();
+        f.setSize(900, 600);
+        f.setVisible(true);
                 break;
             case 2://pastel
                 DefaultPieDataset datosPie = new DefaultPieDataset();
@@ -1353,28 +1367,30 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
 //            datosPie.setValue("Cuatro", dato4);        
                 grafico = ChartFactory.createPieChart("Estadistíca de Ventas", datosPie, true, true, false);
                 grafico.setBackgroundPaint(new java.awt.Color(204, 204, 255));
-                grafico.getLegend().setPosition(RectangleEdge.LEFT);
+                grafico.getLegend().setPosition(RectangleEdge.RIGHT);
                 Plot plot_pie = grafico.getPlot();
                 //borde del grafico en azul
                 plot_pie.setOutlinePaint(Color.BLUE);
                 plot_pie.setOutlineStroke(new BasicStroke(2.0f));
                 //fondo del grafico en blanco
                 plot_pie.setBackgroundPaint(Color.WHITE);
-                break;
-            case 3:
-                this.dispose();
-                break;
-        }
-        ChartPanel cPanel = new ChartPanel(grafico);
-        f.getContentPane().add(cPanel);
+                ChartPanel cPanel_pie = new ChartPanel(grafico);
+        f.getContentPane().add(cPanel_pie);
         f.pack();
         f.setSize(900, 600);
         f.setVisible(true);
+                break;
+            case 3:
+                f.dispose();
+                break;
+        }
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void crea_reporte_desagrupado() {
         try {
+            conectar cc = new conectar();
             int fila = 0;
             String datos = "";
             String ruta_logo = "imagenes/logo3.png";
@@ -1387,7 +1403,7 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
                 resultados.add(tipo);
             }
             Map map = new HashMap();
-            JasperPrint jprPrint;
+            JasperPrint jprPrint = null;
             JDialog reporte = new JDialog();
             reporte.setSize(900, 700);
             reporte.setLocationRelativeTo(null);
@@ -1401,12 +1417,50 @@ public class RegistroVentas extends javax.swing.JInternalFrame {
             map.put("columna_ganancia", ganancia_total.getText());
             map.put("logo", ruta_logo);
 
-            jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla.jasper"),
+             String[] opciones = {"Grafica de Barra", "Grafica de Linea", "Grafica de Pastel","Ninguna","Todas", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(this, "¿Qué grafica desea incluir?", "Control",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")),
+                opciones, 3);
+        switch(opcion){
+            case 0:
+                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_barra.jasper"),
                     map, new JRBeanCollectionDataSource(resultados));
-            JRViewer jv = new JRViewer(jprPrint);
-            reporte.getContentPane().add(jv);
-            reporte.setVisible(true);
-
+                    JRViewer jv_barra = new JRViewer(jprPrint);
+        reporte.getContentPane().add(jv_barra);
+                    reporte.setVisible(true);
+                break;
+            case 1:
+                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_linea.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+                JRViewer jv_linea = new JRViewer(jprPrint);
+        reporte.getContentPane().add(jv_linea);
+                    reporte.setVisible(true);
+                break;
+            case 2:
+                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_pastel.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+                JRViewer jv_pastel = new JRViewer(jprPrint);
+        reporte.getContentPane().add(jv_pastel);
+                    reporte.setVisible(true);
+                break;
+            case 3:
+                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_sin_grafica.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+                JRViewer jv_ninguna = new JRViewer(jprPrint);
+        reporte.getContentPane().add(jv_ninguna);
+                    reporte.setVisible(true);
+                break;
+            case 4:
+                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_all_graficas.jasper"),
+                    map, new JRBeanCollectionDataSource(resultados));
+                JRViewer jv_todas = new JRViewer(jprPrint);
+        reporte.getContentPane().add(jv_todas);
+                    reporte.setVisible(true);
+                break;
+            case 5:
+                reporte.dispose();
+                break;
+        }
         } catch (JRException ex) {
             Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
         }

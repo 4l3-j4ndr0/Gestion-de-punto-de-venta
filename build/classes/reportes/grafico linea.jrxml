@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="557" leftMargin="19" rightMargin="19" topMargin="19" bottomMargin="19" uuid="56b3a2bb-09b4-46c9-ad94-bc75ef33e124">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT `descripcion`, sum(`cantidad`), ((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) ) FROM `registro_venta` group by `descripcion`]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sum(`cantidad`)" class="java.math.BigDecimal"/>
+	<field name="((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) )" class="java.math.BigDecimal"/>
+	<summary>
+		<band height="388" splitType="Stretch">
+			<lineChart>
+				<chart isShowLegend="false" customizerClass="MyChartCustomizer.MyChartCustomizer">
+					<reportElement x="0" y="0" width="512" height="388" uuid="979fb5ca-f5b9-4cda-9f44-4643fe2e06db"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Dummy Series"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{descripcion}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{sum(`cantidad`)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#0033FF"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat verticalTickLabels="true"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>

@@ -2,12 +2,18 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28f9090b-8398-48f3-910f-3f94bb220d76">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="19"/>
 	<parameter name="columna_monto_total" class="java.lang.String"/>
 	<parameter name="columna_ganancia" class="java.lang.String"/>
 	<parameter name="columna_total_ventas" class="java.lang.String"/>
 	<parameter name="columna_inversion" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Proyectos\\Uruguay\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
 	<field name="producto" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
@@ -188,39 +194,39 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
-			<textField>
-				<reportElement x="32" y="12" width="187" height="20" uuid="e5a296a6-68ab-4637-a179-3e77e77e6188"/>
-				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="244" y="12" width="63" height="20" uuid="d0b17863-7821-4ba5-9ab2-e81bc47763c6"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="330" y="12" width="56" height="20" uuid="1209caef-c26a-47c8-907b-b0fbf479070a"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="412" y="12" width="100" height="20" uuid="71c675aa-f92f-4ae1-bff9-bdeb136180ce"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
-			</textField>
+		<band height="35" splitType="Stretch">
 			<line>
 				<reportElement x="32" y="0" width="480" height="1" uuid="e1f1fd70-4d5f-444e-8fd2-e5d1ba840cb7"/>
 			</line>
 			<line>
 				<reportElement x="232" y="1" width="1" height="31" uuid="859f891c-e737-4354-bca7-916f0e9c5310"/>
 			</line>
+			<textField>
+				<reportElement x="32" y="12" width="100" height="20" uuid="c44e6264-36e6-4b81-a60d-a054bb6434e2"/>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="12" width="63" height="20" uuid="2fbf9784-f5e0-48ce-b4f6-74a51325c8a0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="12" width="56" height="20" uuid="0a473632-2251-4d6c-a1b2-50db7cdb4c98"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="12" width="100" height="20" uuid="a91c6dd5-5b3f-465a-8c34-c6e00753c408"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="46" splitType="Stretch">
 			<textField>
 				<reportElement x="210" y="20" width="80" height="20" uuid="f9f673a1-792a-4cfc-ac12-0485fde35cab"/>
 				<textElement textAlignment="Right"/>
@@ -233,6 +239,12 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="1" splitType="Stretch"/>
+		<band height="101" splitType="Stretch">
+			<subreport>
+				<reportElement x="1" y="1" width="553" height="100" uuid="c623515c-f337-46b2-bfc1-2e4d48ca27c3"/>
+				<connectionExpression><![CDATA[java.sql.DriverManager.getConnection("jdbc:mysql://localhost/uruguay", "uruguay", "uruguay")]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "grafico barras.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</summary>
 </jasperReport>

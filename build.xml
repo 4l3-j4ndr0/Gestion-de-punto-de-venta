@@ -94,7 +94,6 @@
         <zipfileset src="D:\Proyectos\Uruguay\lib\commons-logging-1.2.0.L0001.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\commons-digester-2.1.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\poi-4.1.2.jar" excludes="META-INF/*"/>
-        <zipfileset src="D:\Proyectos\Uruguay\lib\report\commons-logging-1.2.0.L0001.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\poi-3.9.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\report\commons-collections-3.2.1.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\report\pa q pueda exportar a excel tambien\commons-codec-1.13.jar" excludes="META-INF/*"/>
@@ -102,7 +101,9 @@
         <zipfileset src="D:\Proyectos\Uruguay\lib\report\adicional pa crear reporte desde jtable\org.apache.commons.beanutils.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\poi-3.12-20150511.jar" excludes="META-INF/*"/>
         <zipfileset src="D:\Proyectos\Uruguay\lib\report\adicional pa crear reporte desde jtable\apache-commons-codec-1.4.jar\apache-commons-codec-1.4.jar" excludes="META-INF/*"/>
-
+        <zipfileset src="D:\Proyectos\Uruguay\lib\MyChartCustomizer.jar" excludes="META-INF/*"/>
+        <zipfileset src="D:\Proyectos\Uruguay\lib\jcommon-1.0.17.jar" excludes="META-INF/*"/>
+        <zipfileset src="D:\Proyectos\Uruguay\lib\jfreechart-1.0.14.jar" excludes="META-INF/*"/>
       </jar>
 </target>
 </project>
