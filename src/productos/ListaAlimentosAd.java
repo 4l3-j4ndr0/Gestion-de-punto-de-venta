@@ -333,9 +333,11 @@ public class ListaAlimentosAd extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay registros.", "Alimentos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
         }
+        tipoAl.setSelectedIndex(0);
         OpcionesAl.listar3("");
         Alimentos.resizeColumnWidth(ventas.CajaAd.tablaCaja);
         buscar.setText("");
+        
     }//GEN-LAST:event_enviarActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
