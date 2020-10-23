@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28f9090b-8398-48f3-910f-3f94bb220d76">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="284"/>
+	<property name="ireport.y" value="285"/>
 	<subDataset name="dataset1" uuid="ca51c5b3-fb84-46c7-9460-b79ff9c0c8b1"/>
 	<parameter name="columna_monto_total" class="java.lang.String"/>
 	<parameter name="columna_ganancia" class="java.lang.String"/>

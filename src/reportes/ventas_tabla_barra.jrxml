@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28f9090b-8398-48f3-910f-3f94bb220d76">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.y" value="18"/>
 	<parameter name="columna_monto_total" class="java.lang.String"/>
 	<parameter name="columna_ganancia" class="java.lang.String"/>
 	<parameter name="columna_total_ventas" class="java.lang.String"/>
@@ -12,17 +12,18 @@
 		<defaultValueExpression><![CDATA["D:\\Proyectos\\Uruguay\\src\\reportes\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT `descripcion`, sum(`cantidad`) as suma, ((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) ) FROM `registro_venta` group by `descripcion`]]>
 	</queryString>
-	<field name="producto" class="java.lang.String"/>
-	<field name="cantidad" class="java.lang.String"/>
-	<field name="total" class="java.lang.String"/>
-	<field name="fecha" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="suma" class="java.math.BigDecimal"/>
+	<field name="((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) )" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="126" splitType="Stretch">
+		<band height="127" splitType="Stretch">
 			<staticText>
 				<reportElement x="219" y="91" width="250" height="34" uuid="c0d62a29-ad1e-4f01-be49-0171b099e154"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -241,7 +242,7 @@
 	<summary>
 		<band height="101" splitType="Stretch">
 			<subreport>
-				<reportElement x="1" y="1" width="553" height="100" uuid="c623515c-f337-46b2-bfc1-2e4d48ca27c3"/>
+				<reportElement x="2" y="1" width="552" height="100" uuid="3d9ed83b-22ba-40bc-bbe7-e1fb587140c1"/>
 				<connectionExpression><![CDATA[java.sql.DriverManager.getConnection("jdbc:mysql://localhost/uruguay", "uruguay", "uruguay")]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "grafico barras.jasper"]]></subreportExpression>
 			</subreport>

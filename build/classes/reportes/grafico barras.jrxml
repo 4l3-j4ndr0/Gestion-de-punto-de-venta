@@ -4,13 +4,13 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT `descripcion`, sum(`cantidad`), ((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) ) FROM `registro_venta` group by `descripcion`]]>
+		<![CDATA[SELECT `descripcion`, sum(`cantidad`) as suma, ((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) ) as porciento FROM `registro_venta` group by `descripcion`]]>
 	</queryString>
 	<field name="descripcion" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="sum(`cantidad`)" class="java.math.BigDecimal"/>
-	<field name="((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) )" class="java.math.BigDecimal"/>
+	<field name="suma" class="java.math.BigDecimal"/>
+	<field name="porciento" class="java.math.BigDecimal"/>
 	<summary>
 		<band height="373" splitType="Stretch">
 			<barChart>

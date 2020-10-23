@@ -17,7 +17,7 @@ public class conectar {
         try {
             // pa conectar sin tener instalado el xammp
             Class.forName("org.h2.Driver");
-             conect = DriverManager.getConnection("jdbc:h2:./BD/uruguay","uruguay", "uruguay");
+             conect = DriverManager.getConnection("jdbc:h2:./BD/uruguay","uruguay","uruguay");
  // pa conectar teniendo instalado el xammp
 //           Class.forName("com.mysql.jdbc.Driver");
 //             conect = DriverManager.getConnection("jdbc:mysql://localhost/uruguay", "uruguay", "uruguay"); 
