@@ -5,6 +5,12 @@
  */
 package productos;
 
+import excel.FakeDataProvider;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +18,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import necesario.RSFileChooser;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import principal.GenerarCodigos;
 import principal.conectar;
 
@@ -38,6 +50,8 @@ public class OpcionesAl {
             ps.setString(5, uc.getPrecio_compra());
             ps.setString(6, uc.getPrecio_venta());
             ps.setString(7, String.valueOf((Double.parseDouble(uc.getPrecio_venta())-Double.parseDouble(uc.getPrecio_compra()))*Double.parseDouble(uc.getCantidad())));
+            ps.setString(8, uc.getStock_minimo());
+            ps.setString(9, uc.getStock_maximo());
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -90,7 +104,10 @@ public class OpcionesAl {
             ps.setString(4, uc.getPrecio_compra());
             ps.setString(5, uc.getPrecio_venta());
             ps.setString(6, String.valueOf((Double.parseDouble(uc.getPrecio_venta())-Double.parseDouble(uc.getPrecio_compra()))*Double.parseDouble(uc.getCantidad())));
-            ps.setString(7, uc.getPrimaryKey());
+            ps.setString(7, uc.getStock_minimo());
+            ps.setString(8, uc.getStock_maximo());
+            ps.setString(9, uc.getPrimaryKey());
+            
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -381,6 +398,25 @@ public class OpcionesAl {
         return num;
     }
      
+     public static String extraer_stock(String sql) {
+        int j;
+        int cant = 1;
+        String num = "";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                cant = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OpcionesAl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        num=String.valueOf(cant);
+        return num;
+    }
+     
      public static boolean existe_nombre_producto(String nombre) {
         String c = null;
         boolean existe=false;
@@ -401,4 +437,61 @@ public class OpcionesAl {
         return existe;
     }
      
+     public  void generarExcel() {
+        HSSFWorkbook workbook = new excel.ExcelGenerator().generateExcel();
+        
+        RSFileChooser fileChooser = new RSFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos Excel (*.xls)", "xls");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("GUARDAR ARCHIVO");
+        if (fileChooser.showSaveDialog(null) == RSFileChooser.APPROVE_OPTION) {
+            System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+            File archivo = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            
+                    try {
+
+                        OutputStream out = null;
+                        if (getFileExtension(archivo)) {
+                            out = new FileOutputStream(fileChooser.getSelectedFile().getAbsolutePath());
+                        } else {
+                            out = new FileOutputStream(fileChooser.getSelectedFile().getAbsolutePath() + ".xls");
+                        }
+                        workbook.write(out);
+                        workbook.close();
+                        out.flush();
+                        out.close();
+
+                        JOptionPane.showMessageDialog(null, "Exportado en formato Excel exitosamente.", "Productos", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/excel.png")));
+                    } catch (FileNotFoundException ex) {
+                        JOptionPane.showMessageDialog(null, "Algo salio mal, ela rchivo que intenra sobreescribir se encuentra abierto\n"
+                                + "cierrelo y vuelva a intentarlo.", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+
+//                        Logger.getLogger(pnlAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Algo salio mal, no fue posible crear el archivo por el siguiente error:\n"+".", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+
+//                        Logger.getLogger(pnlAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
+        }
+    }
+     private boolean getFileExtension(File file) {
+        String ext = null;
+        String s = file.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 && i < s.length() - 1) {
+            ext = s.substring(i + 1).toLowerCase();
+        }
+
+        if (ext != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

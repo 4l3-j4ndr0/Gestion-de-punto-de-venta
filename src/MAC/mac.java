@@ -31,7 +31,7 @@ public class mac {
             for (int i = 0; i < mac.length; i++)
                 sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
             a.add(sb.toString()+"\n");
-            System.out.println(sb.toString());
+          //  System.out.println(sb.toString());
             
         }
     }

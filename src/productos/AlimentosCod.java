@@ -18,8 +18,8 @@ public class AlimentosCod {
     
     public static String LISTAR = "SELECT * FROM alimentos ORDER BY nombre_al";
     
-    public static String REGISTRAR = "INSERT INTO alimentos(codigo_al, tipo_al, nombre_al, cantidad_al, precio_compra, precio_venta,ganancia) "
-            + "VALUES(?,?,?,?,?,?,?)";
+    public static String REGISTRAR = "INSERT INTO alimentos(codigo_al, tipo_al, nombre_al, cantidad_al, precio_compra, precio_venta,ganancia,stock_minimo, stock_maximo) "
+            + "VALUES(?,?,?,?,?,?,?,?,?)";
     
     public static String REGISTRAR_MAC = "INSERT INTO mac(mac) "
             + "VALUES(?)";
@@ -27,7 +27,7 @@ public class AlimentosCod {
     public static String REGISTRAR2 = "INSERT INTO alimentos(codigo_al, tipo_al, nombre_al, precio_compra, precio_venta, ganancia) "
             + "VALUES(?,?,?,?,?,?)";
     
-    public static String ACTUALIZAR = "UPDATE alimentos SET tipo_al=?, nombre_al=?, cantidad_al=?, precio_compra=?, precio_venta=?, ganancia=? WHERE codigo_al=?";
+    public static String ACTUALIZAR = "UPDATE alimentos SET tipo_al=?, nombre_al=?, cantidad_al=?, precio_compra=?, precio_venta=?, ganancia=? , stock_minimo=? , stock_maximo=? WHERE codigo_al=?";
     
     public static String ELIMINAR = "DELETE FROM alimentos WHERE codigo_al = ?";
     
@@ -41,6 +41,8 @@ public class AlimentosCod {
     private String cantidad;
     private String precio_compra;
     private String precio_venta;
+    private String stock_minimo;
+    private String stock_maximo;
      
     public AlimentosCod(){
         
@@ -94,5 +96,22 @@ public class AlimentosCod {
         this.precio_venta = precio_venta;
     }
 
+    public String getStock_minimo() {
+        return stock_minimo;
+    }
+
+    public void setStock_minimo(String stock_minimo) {
+        this.stock_minimo = stock_minimo;
+    }
+
+    public String getStock_maximo() {
+        return stock_maximo;
+    }
+
+    public void setStock_maximo(String stock_maximo) {
+        this.stock_maximo = stock_maximo;
+    }
+
+    
     
 }

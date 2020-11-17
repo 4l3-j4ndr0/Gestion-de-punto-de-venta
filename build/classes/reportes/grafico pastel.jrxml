@@ -25,7 +25,7 @@
 					<valueExpression><![CDATA[$F{sum(`cantidad`)}]]></valueExpression>
 					<labelExpression><![CDATA[$F{descripcion}+" "+$F{((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) )}+"%"]]></labelExpression>
 				</pieDataset>
-				<piePlot>
+				<piePlot isShowLabels="true" isCircular="true">
 					<plot/>
 					<itemLabel/>
 				</piePlot>

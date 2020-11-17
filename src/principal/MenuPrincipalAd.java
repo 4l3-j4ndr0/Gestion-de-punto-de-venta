@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import respaldo_BD.WarningBackup;
 import usuarios.OpcionesUs;
 import usuarios.Usuarios;
 import ventas.CajaAd;
@@ -115,6 +116,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
         alimentos = new javax.swing.JButton();
         ventas = new javax.swing.JButton();
         ventas1 = new javax.swing.JButton();
+        backup_bd = new javax.swing.JButton();
         escritorio = new principal.Escritorio();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -258,6 +260,22 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
             }
         });
 
+        backup_bd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        backup_bd.setForeground(new java.awt.Color(255, 255, 255));
+        backup_bd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/backup_bd.png"))); // NOI18N
+        backup_bd.setText("BACKUP BD");
+        backup_bd.setBorder(null);
+        backup_bd.setContentAreaFilled(false);
+        backup_bd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backup_bd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        backup_bd.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/backup_bd2.png"))); // NOI18N
+        backup_bd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        backup_bd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backup_bdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -268,24 +286,26 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(logoSexo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(desc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(desc, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(logoSexo1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userConect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(hora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(alimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(caja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(ventas1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(backup_bd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(info)
                 .addContainerGap())
         );
@@ -296,6 +316,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(backup_bd)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(usuarios)
                         .addComponent(alimentos)
@@ -317,7 +338,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(logoSexo))))
                     .addComponent(info))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -332,7 +353,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
+                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -481,6 +502,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
                 new ImageIcon(getClass().getResource("/imagenes/principal/yo4.png")));
     }//GEN-LAST:event_infoActionPerformed
     RegistroDeudas rd;
+    
     private void ventas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventas1ActionPerformed
         // TODO add your handling code here:
         try {
@@ -504,6 +526,31 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
         }
     }//GEN-LAST:event_ventas1ActionPerformed
+
+    WarningBackup  wb;
+    private void backup_bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backup_bdActionPerformed
+        // TODO add your handling code here:
+         try {
+            OpcionesUs us = new OpcionesUs();
+            if (us.extraer_Tipo_us(userConect.getText()).equals("ADMINISTRADOR")) {
+                if (estacerrado(wb)) {
+                    wb = new WarningBackup(new JFrame(), true);
+                   // escritorio.add(wb).setLocation(250, 3);
+                    wb.setVisible(true);
+                    cerra1 = true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "La ventana BACKUP BD\nya esta abierta !!!", "Aviso", 0,
+                            new ImageIcon(getClass().getResource("/imagenes/principal/adver.png")));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Acceso denegado.", "Error", 0,
+                        new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
+        }
+    }//GEN-LAST:event_backup_bdActionPerformed
     class horas implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -555,6 +602,7 @@ public class MenuPrincipalAd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alimentos;
+    private javax.swing.JButton backup_bd;
     private javax.swing.JButton caja;
     private javax.swing.JLabel desc;
     public static principal.Escritorio escritorio;

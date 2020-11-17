@@ -12,7 +12,7 @@
 		<defaultValueExpression><![CDATA["D:\\Proyectos\\Uruguay\\src\\reportes\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT `descripcion`, sum(`cantidad`), ((sum(`cantidad`)*100)/(select sum(`cantidad`) from registro_venta) ) FROM `registro_venta` group by `descripcion`]]>
 	</queryString>
 	<field name="producto" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.String"/>
@@ -241,7 +241,7 @@
 	<summary>
 		<band height="101" splitType="Stretch">
 			<subreport>
-				<reportElement x="1" y="1" width="553" height="100" uuid="c623515c-f337-46b2-bfc1-2e4d48ca27c3"/>
+				<reportElement x="0" y="1" width="525" height="100" uuid="06d2f429-c627-4a51-b1ed-e82a66e547ad"/>
 				<connectionExpression><![CDATA[java.sql.DriverManager.getConnection("jdbc:mysql://localhost/uruguay", "uruguay", "uruguay")]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "grafico linea.jasper"]]></subreportExpression>
 			</subreport>

@@ -1417,50 +1417,55 @@ ChartPanel cPanel_linea = new ChartPanel(grafico);
             map.put("columna_ganancia", ganancia_total.getText());
             map.put("logo", ruta_logo);
 
-             String[] opciones = {"Grafica de Barra", "Grafica de Linea", "Grafica de Pastel","Ninguna","Todas", "Cancelar"};
-        int opcion = JOptionPane.showOptionDialog(this, "¿Qué grafica desea incluir?", "Control",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")),
-                opciones, 3);
-        switch(opcion){
-            case 0:
-                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_barra.jasper"),
-                    map, new JRBeanCollectionDataSource(resultados));
-                    JRViewer jv_barra = new JRViewer(jprPrint);
-        reporte.getContentPane().add(jv_barra);
-                    reporte.setVisible(true);
-                break;
-            case 1:
-                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_linea.jasper"),
-                    map, new JRBeanCollectionDataSource(resultados));
-                JRViewer jv_linea = new JRViewer(jprPrint);
-        reporte.getContentPane().add(jv_linea);
-                    reporte.setVisible(true);
-                break;
-            case 2:
-                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_pastel.jasper"),
-                    map, new JRBeanCollectionDataSource(resultados));
-                JRViewer jv_pastel = new JRViewer(jprPrint);
-        reporte.getContentPane().add(jv_pastel);
-                    reporte.setVisible(true);
-                break;
-            case 3:
-                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_sin_grafica.jasper"),
+//             String[] opciones = {"Grafica de Barra", "Grafica de Linea", "Grafica de Pastel","Ninguna","Todas", "Cancelar"};
+//        int opcion = JOptionPane.showOptionDialog(this, "¿Qué grafica desea incluir?", "Control",
+//                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png")),
+//                opciones, 3);
+//        switch(opcion){
+//            case 0:
+//                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_barra.jasper"),
+//                    map, new JRBeanCollectionDataSource(resultados));
+//                    JRViewer jv_barra = new JRViewer(jprPrint);
+//        reporte.getContentPane().add(jv_barra);
+//                    reporte.setVisible(true);
+//                break;
+//            case 1:
+//                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_linea.jasper"),
+//                    map, new JRBeanCollectionDataSource(resultados));
+//                JRViewer jv_linea = new JRViewer(jprPrint);
+//        reporte.getContentPane().add(jv_linea);
+//                    reporte.setVisible(true);
+//                break;
+//            case 2:
+//                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_pastel.jasper"),
+//                    map, new JRBeanCollectionDataSource(resultados));
+//                JRViewer jv_pastel = new JRViewer(jprPrint);
+//        reporte.getContentPane().add(jv_pastel);
+//                    reporte.setVisible(true);
+//                break;
+//            case 3:
+//                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_sin_grafica.jasper"),
+//                    map, new JRBeanCollectionDataSource(resultados));
+//                JRViewer jv_ninguna = new JRViewer(jprPrint);
+//        reporte.getContentPane().add(jv_ninguna);
+//                    reporte.setVisible(true);
+//                break;
+//            case 4:
+//                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_all_graficas.jasper"),
+//                    map, new JRBeanCollectionDataSource(resultados));
+//                JRViewer jv_todas = new JRViewer(jprPrint);
+//        reporte.getContentPane().add(jv_todas);
+//                    reporte.setVisible(true);
+//                break;
+//            case 5:
+//                reporte.dispose();
+//                break;
+            jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_sin_grafica.jasper"),
                     map, new JRBeanCollectionDataSource(resultados));
                 JRViewer jv_ninguna = new JRViewer(jprPrint);
         reporte.getContentPane().add(jv_ninguna);
                     reporte.setVisible(true);
-                break;
-            case 4:
-                jprPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/ventas_tabla_all_graficas.jasper"),
-                    map, new JRBeanCollectionDataSource(resultados));
-                JRViewer jv_todas = new JRViewer(jprPrint);
-        reporte.getContentPane().add(jv_todas);
-                    reporte.setVisible(true);
-                break;
-            case 5:
-                reporte.dispose();
-                break;
-        }
+        
         } catch (JRException ex) {
             Logger.getLogger(RegistroDeudas.class.getName()).log(Level.SEVERE, null, ex);
         }

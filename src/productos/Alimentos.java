@@ -233,6 +233,9 @@ public class Alimentos extends javax.swing.JInternalFrame {
             cantidad.setText("");
         }
         precio_compra.setText(tablaAlimentos.getValueAt(fila, 4).toString());
+        OpcionesAl opc=new OpcionesAl();
+        stock_minimo.setText(opc.extraer_stock("SELECT `stock_minimo` FROM `alimentos` WHERE `codigo_al`='"+tablaAlimentos.getValueAt(fila, 0).toString()+"'"));
+        stock_maximo.setText(opc.extraer_stock("SELECT `stock_maximo` FROM `alimentos` WHERE `codigo_al`='"+tablaAlimentos.getValueAt(fila, 0).toString()+"'"));
     }
     boolean selecionRegistro = false;
 
@@ -257,6 +260,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
         foto_off_lista_eliminar.setVisible(true);
         jpanel_eliminar_x_tipo.setEnabled(false);
         lista_eliminar_tipo.getModel().setSelectedItem("TIPO PRODUCTO");
+        stock_minimo.setText("");
+        stock_maximo.setText("");
     }
 
     void selecionaFila(String id) {
@@ -298,6 +303,12 @@ public class Alimentos extends javax.swing.JInternalFrame {
         foto_tipo_eliminar_tipo = new javax.swing.JLabel();
         tipoAl = new org.bolivia.combo.SComboBoxBlue();
         tipoL = new javax.swing.JLabel();
+        PANEL_STOCK = new javax.swing.JPanel();
+        stock_minimo = new app.bolivia.swing.JCTextField();
+        stock_maximo = new app.bolivia.swing.JCTextField();
+        cantidadL2 = new javax.swing.JLabel();
+        cantidadL3 = new javax.swing.JLabel();
+        cantidadL1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAlimentos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -307,6 +318,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
         eliminarT = new javax.swing.JButton();
         limpiar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buscar = new app.bolivia.swing.JCTextField();
         codigoL1 = new javax.swing.JLabel();
@@ -471,6 +483,57 @@ public class Alimentos extends javax.swing.JInternalFrame {
         tipoL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos.png"))); // NOI18N
         jPanel2.add(tipoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 22, -1, 40));
 
+        PANEL_STOCK.setBackground(new java.awt.Color(255, 255, 255));
+        PANEL_STOCK.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "STOCK ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        PANEL_STOCK.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        stock_minimo.setBackground(new java.awt.Color(34, 102, 145));
+        stock_minimo.setBorder(null);
+        stock_minimo.setForeground(new java.awt.Color(255, 255, 255));
+        stock_minimo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        stock_minimo.setOpaque(false);
+        stock_minimo.setPhColor(new java.awt.Color(255, 255, 255));
+        stock_minimo.setPlaceholder("MÍNIMO");
+        stock_minimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stock_minimoActionPerformed(evt);
+            }
+        });
+        stock_minimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stock_minimoKeyTyped(evt);
+            }
+        });
+        PANEL_STOCK.add(stock_minimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 30));
+
+        stock_maximo.setBackground(new java.awt.Color(34, 102, 145));
+        stock_maximo.setBorder(null);
+        stock_maximo.setForeground(new java.awt.Color(255, 255, 255));
+        stock_maximo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        stock_maximo.setOpaque(false);
+        stock_maximo.setPhColor(new java.awt.Color(255, 255, 255));
+        stock_maximo.setPlaceholder("MÁXIMO");
+        stock_maximo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stock_maximoKeyTyped(evt);
+            }
+        });
+        PANEL_STOCK.add(stock_maximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 80, 30));
+
+        cantidadL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cantidadL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos1.png"))); // NOI18N
+        PANEL_STOCK.add(cantidadL2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 100, 30));
+
+        cantidadL3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cantidadL3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos1.png"))); // NOI18N
+        PANEL_STOCK.add(cantidadL3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 100, 30));
+
+        jPanel2.add(PANEL_STOCK, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 270, 60));
+
+        cantidadL1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cantidadL1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos1.png"))); // NOI18N
+        jPanel2.add(cantidadL1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, 50));
+
         tablaAlimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -591,22 +654,41 @@ public class Alimentos extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel.png"))); // NOI18N
+        jButton2.setText("EXCEL");
+        jButton2.setToolTipText("Exportar tabla en formato excel");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel2.png"))); // NOI18N
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(actualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminarT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(limpiar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {actualizar, eliminar, eliminarT, limpiar});
@@ -620,7 +702,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     .addComponent(eliminar)
                     .addComponent(eliminarT)
                     .addComponent(limpiar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -661,8 +744,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -689,7 +772,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -749,6 +832,14 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "El producto: ' " + this.nombre.getText() + " '\nya existe en un registro.", "Productos", 0,
                     new ImageIcon(getClass().getResource("/imagenes/usuarios/impo.png")));
                 }else{
+                    if((stock_minimo.getText().equals(stock_maximo.getText()))&&(!stock_minimo.getText().isEmpty()&&!stock_maximo.getText().isEmpty())){
+                    JOptionPane.showMessageDialog(this, "El 'STOCK MÍNIMO' no puede ser igual al 'STOCK MÁXIMO.", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
+                    }else{
+                        if((!stock_minimo.getText().isEmpty()&&!stock_maximo.getText().isEmpty())&&(Integer.parseInt(stock_minimo.getText())>Integer.parseInt(stock_maximo.getText()))){
+                            JOptionPane.showMessageDialog(this, "El 'STOCK MÍNIMO' no puede mayor que el 'STOCK MÁXIMO.", "Productos", 0,
+                    new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
+                        }else{
                 Runnable runnable1 = new Runnable() {
                     @Override
                     public void run() {
@@ -764,6 +855,16 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 us.setTipoal(tipoAl.getSelectedItem().toString());
                 us.setPrecio_compra(precio_compra.getText());
                 us.setPrecio_venta(precio_venta.getText());
+                    if(stock_minimo.getText().isEmpty()){
+                        us.setStock_minimo("0");
+                    }else{
+                        us.setStock_minimo(stock_minimo.getText());
+                    }
+                    if(stock_maximo.getText().isEmpty()){
+                        us.setStock_maximo("20000");
+                    }else{
+                        us.setStock_maximo(stock_maximo.getText());
+                    }
                 int opcion = OpcionesAl.registrar(us);
                 if (opcion != 0) {
                     String id = codigo.getText();
@@ -779,6 +880,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
                     check_suma.setVisible(false);
                      OpcionesAl.extraerID();
                      selecionRegistro = false;
+                     stock_minimo.setText("");
+                     stock_maximo.setText("");
                     JOptionPane.showMessageDialog(Alimentos.this, "Registro éxitoso.", "Productos", 0,
                             new ImageIcon(getClass().getResource("/imagenes/agregado.png")));
                 }
@@ -788,6 +891,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
                 };
                 Thread t1 = new Thread(runnable1);
                 t1.start();
+            }
+                }
             }
         }
         }
@@ -802,7 +907,19 @@ public class Alimentos extends javax.swing.JInternalFrame {
                             new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
                 } else if (JOptionPane.showConfirmDialog(this, "Esta a punto de actualizar\nun registro.\n¿Desea continuar?", "Productos", JOptionPane.YES_NO_OPTION, 0,
                         new ImageIcon(getClass().getResource("/imagenes/usuarios/seguro.png"))) == JOptionPane.YES_OPTION) {
-                    if (!cantidad.getText().equals("")) {
+                    if(stock_minimo.getText().equals(stock_maximo.getText())||
+                            Integer.parseInt(stock_minimo.getText())>Integer.parseInt(stock_maximo.getText())){
+                    
+                        if(stock_minimo.getText().equals(stock_maximo.getText())){
+                                    JOptionPane.showMessageDialog(this, "El 'STOCK MÍNIMO' no puede ser igual al 'STOCK MÁXIMO.", "Productos", 0,
+                                    new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
+                            }
+                        if(Integer.parseInt(stock_minimo.getText())>Integer.parseInt(stock_maximo.getText())){
+                                    JOptionPane.showMessageDialog(this, "El 'STOCK MÍNIMO' no puede mayor que el 'STOCK MÁXIMO.", "Productos", 0,
+                                    new ImageIcon(getClass().getResource("/imagenes/usuarios/info.png")));
+                            } 
+                    }else{
+                        if (!cantidad.getText().equals("")) {
 //                        Runnable runnable1 = new Runnable() {
 //                    public void run() {
 //                        escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -814,13 +931,12 @@ public class Alimentos extends javax.swing.JInternalFrame {
                             productos.AlimentosCod us = new AlimentosCod();
                             us.setPrimaryKey(codigo.getText());
                             us.setNombre(nombre.getText());
-                 System.out.println("cantidad "+us.getCantidad());
                             us.setCantidad(String.valueOf(Integer.parseInt(cantidad.getText())+cantAlmacen));
-                 System.out.println(us.getCantidad());
                             us.setTipoal(tipoAl.getSelectedItem().toString());
-                 System.out.println(cantAlmacen);
                             us.setPrecio_compra(precio_compra.getText());
                             us.setPrecio_venta(precio_venta.getText());
+                            us.setStock_minimo(stock_minimo.getText());
+                            us.setStock_maximo(stock_maximo.getText());
                             int opcion = OpcionesAl.actualizar(us);
                             if (opcion != 0) {
                                 String id = codigo.getText();
@@ -837,6 +953,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
                             us.setTipoal(tipoAl.getSelectedItem().toString());
                             us.setPrecio_compra(precio_compra.getText());
                             us.setPrecio_venta(precio_venta.getText());
+                            us.setStock_minimo(stock_minimo.getText());
+                            us.setStock_maximo(stock_maximo.getText());
                             int opcion = OpcionesAl.actualizar(us);
                             if (opcion != 0) {
                                 String id = codigo.getText();
@@ -869,6 +987,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
 //                            JOptionPane.showMessageDialog(this, "Registro actualizado.", "Productos", 0,
 //                                    new ImageIcon(getClass().getResource("/imagenes/alimentos/actualizado.png")));
 //                        }
+                    }
                     }
                 }
             } else {
@@ -1101,6 +1220,45 @@ public class Alimentos extends javax.swing.JInternalFrame {
         t1.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Runnable runnable1 = new Runnable() {
+            public void run() {
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+                Alimentos.this.setEnabled(false);
+                //inicio metodo
+                OpcionesAl o=new OpcionesAl();
+                o.generarExcel();
+                //fin metodo
+                Alimentos.this.setEnabled(true);
+                escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            }
+        };
+        Thread t1 = new Thread(runnable1);
+        t1.start();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void stock_minimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stock_minimoKeyTyped
+        // TODO add your handling code here:
+        char num = evt.getKeyChar();
+        if ((num < '0' || num > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_stock_minimoKeyTyped
+
+    private void stock_minimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stock_minimoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stock_minimoActionPerformed
+
+    private void stock_maximoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stock_maximoKeyTyped
+        // TODO add your handling code here:
+        char num = evt.getKeyChar();
+        if ((num < '0' || num > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_stock_maximoKeyTyped
+
     public void report() {
         try {
             
@@ -1131,10 +1289,14 @@ public class Alimentos extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PANEL_STOCK;
     private javax.swing.JButton actualizar;
     private app.bolivia.swing.JCTextField buscar;
     private app.bolivia.swing.JCTextField cantidad;
     private javax.swing.JLabel cantidadL;
+    private javax.swing.JLabel cantidadL1;
+    private javax.swing.JLabel cantidadL2;
+    private javax.swing.JLabel cantidadL3;
     private javax.swing.JCheckBox check_suma;
     public static app.bolivia.swing.JCTextField codigo;
     private javax.swing.JLabel codigoL;
@@ -1144,6 +1306,7 @@ public class Alimentos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel foto_off_lista_eliminar;
     private javax.swing.JLabel foto_tipo_eliminar_tipo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1160,6 +1323,8 @@ public class Alimentos extends javax.swing.JInternalFrame {
     private app.bolivia.swing.JCTextField precio_venta;
     private javax.swing.JLabel precio_ventaL;
     private javax.swing.JButton registrar;
+    private app.bolivia.swing.JCTextField stock_maximo;
+    private app.bolivia.swing.JCTextField stock_minimo;
     public static javax.swing.JTable tablaAlimentos;
     private org.bolivia.combo.SComboBoxBlue tipoAl;
     private javax.swing.JLabel tipoL;

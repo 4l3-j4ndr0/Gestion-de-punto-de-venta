@@ -1,16 +1,18 @@
 package principal;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
-/**
+/** 
  *
  * @author 4L3
  */
 
 public class conectar {
 
-    Connection conect = null;
+   public static Connection conect = null;
     
 
     public Connection conexion() {
@@ -25,5 +27,6 @@ public class conectar {
             JOptionPane.showMessageDialog(null, "Error en la conexión" + e);
         }
         return conect;
-    }   
+    }  
+    
 }

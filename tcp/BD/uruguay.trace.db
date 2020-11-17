@@ -1,0 +1,8 @@
+2020-11-02 03:04:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "MAC" no encontrada
+Table "MAC" not found; SQL statement:
+SELECT count(*) FROM mac [42102-192]
+2020-11-02 03:04:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "MAC" no encontrada
+Table "MAC" not found; SQL statement:
+SELECT count(*) FROM mac [42102-192]

@@ -10,6 +10,7 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import productos.OpcionesAl;
 
 /**
  *
@@ -30,21 +31,25 @@ public class EstiloTablaRenderer extends DefaultTableCellRenderer {
         this.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(0, 0, 0)));
 
         if (row % 2 == 0) {
-           componenete.setBackground(Color.green);
+           componenete.setBackground(Color.WHITE);
            componenete.setForeground(Color.BLACK);
         } else {
-            componenete.setBackground(new Color(255,204,153));
+            componenete.setBackground(Color.white); //new Color(255,204,153)
             componenete.setForeground(Color.BLACK);
         }
         
         if (table.getValueAt(row, 3) != null) {
-            double numero = Double.parseDouble(table.getValueAt(row, 3).toString());
-            if (numero < 10 && numero > 0) {
+            int numero = Integer.parseInt(table.getValueAt(row, 3).toString());
+            if (numero <= Integer.parseInt(OpcionesAl.extraer_stock("SELECT `stock_minimo` FROM `alimentos` WHERE `codigo_al`='"+table.getValueAt(row, 0).toString()+"'")) && numero > 0) {
                 setBackground(Color.YELLOW);
                 setForeground(Color.BLACK);
             }
             if (numero == 0) {
                 setBackground(Color.RED);
+                setForeground(Color.BLACK);
+            }
+            if ( numero >= Integer.parseInt(OpcionesAl.extraer_stock("SELECT `stock_maximo` FROM `alimentos` WHERE `codigo_al`='"+table.getValueAt(row, 0).toString()+"'"))) {
+                setBackground(Color.GREEN);
                 setForeground(Color.BLACK);
             }
         }
